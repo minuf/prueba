@@ -1,12 +1,12 @@
-package com.example.testapp
+package com.example.testapp.ui.characters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.marvelapplication.core.domain.model.Character
-import com.example.marvelapplication.core.domain.ports.AppPortsFactory
-import com.example.marvelapplication.core.domain.ports.GetAllCharacters
+import com.example.testapp.core.domain.model.Character
+import com.example.testapp.core.domain.ports.AppPortsFactory
+import com.example.testapp.core.domain.ports.GetAllCharacters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

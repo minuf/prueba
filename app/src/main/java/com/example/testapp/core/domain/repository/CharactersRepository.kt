@@ -1,6 +1,6 @@
-package com.example.marvelapplication.core.domain.repository
+package com.example.testapp.core.domain.repository
 
-import com.example.marvelapplication.core.domain.model.Character
+import com.example.testapp.core.domain.model.Character
 
 interface CharactersRepository {
     suspend fun getAllCharacters() : List<Character>

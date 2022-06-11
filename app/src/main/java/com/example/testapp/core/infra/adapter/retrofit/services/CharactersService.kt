@@ -1,6 +1,6 @@
 package com.example.marvelapplication.core.infra.adapter.retrofit.services
 
-import com.example.marvelapplication.core.domain.model.Character
+import com.example.testapp.core.domain.model.Character
 import com.example.marvelapplication.core.infra.adapter.retrofit.data.MarvelResponse
 import com.example.marvelapplication.core.infra.adapter.retrofit.data.VALUES
 import retrofit2.Response

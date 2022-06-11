@@ -1,4 +1,4 @@
-package com.example.marvelapplication.core.domain.ports
+package com.example.testapp.core.domain.ports
 
 import com.example.marvelapplication.core.infra.adapter.retrofit.RetrofitCharactersRepository
 import com.example.marvelapplication.core.infra.adapter.retrofit.factories.RetrofitFactory

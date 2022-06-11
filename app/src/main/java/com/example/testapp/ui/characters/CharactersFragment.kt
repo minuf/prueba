@@ -1,6 +1,5 @@
-package com.example.testapp
+package com.example.testapp.ui.characters
 
-import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -36,7 +35,12 @@ class CharactersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
         // TODO: Use the ViewModel
-        val adapter = CharacterListAdapter(context!!, listOf())
+        val adapter = CharacterListAdapter(requireContext(), listOf())
+        adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
+            override fun onItemClick(view: View?, position: Int) {
+                println(adapter.mData[position].name)
+            }
+        })
 
         binding.rvHome.layoutManager = GridLayoutManager(context, 3)
         binding.rvHome.adapter = adapter

@@ -1,4 +1,4 @@
-package com.example.testapp
+package com.example.testapp.ui.characters
 
 import android.content.Context
 import android.content.res.Configuration
@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.marvelapplication.core.domain.model.Character
+import com.example.testapp.core.domain.model.Character
+import com.example.testapp.R
 import com.squareup.picasso.Picasso
 
 class CharacterListAdapter internal constructor(private val context: Context, data: List<Character>) :

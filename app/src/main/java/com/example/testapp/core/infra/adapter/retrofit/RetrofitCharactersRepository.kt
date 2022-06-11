@@ -1,8 +1,7 @@
 package com.example.marvelapplication.core.infra.adapter.retrofit
 
-import com.example.marvelapplication.core.domain.model.Character
-import com.example.marvelapplication.core.domain.repository.CharactersRepository
-import com.example.marvelapplication.core.infra.adapter.retrofit.data.VALUES
+import com.example.testapp.core.domain.model.Character
+import com.example.testapp.core.domain.repository.CharactersRepository
 import com.example.marvelapplication.core.infra.adapter.retrofit.services.CharactersService
 
 class RetrofitCharactersRepository(private val charactersService: CharactersService) :
