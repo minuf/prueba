@@ -38,7 +38,7 @@ class CharactersFragment : Fragment() {
         val adapter = CharacterListAdapter(requireContext(), listOf())
         adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
-                println(adapter.mData[position].name)
+                println(adapter.currentList[position].name)
             }
         })
 
@@ -50,7 +50,7 @@ class CharactersFragment : Fragment() {
         }
 
         viewModel.characters.observe(viewLifecycleOwner) {
-            adapter.mData = it
+            adapter.submitList(it)
             binding.srHome.isRefreshing = false
             println(it)
         }

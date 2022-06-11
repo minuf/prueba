@@ -7,18 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.core.domain.model.Character
 import com.example.testapp.R
 import com.squareup.picasso.Picasso
 
 class CharacterListAdapter internal constructor(private val context: Context, data: List<Character>) :
-    RecyclerView.Adapter<CharacterListAdapter.ViewHolder>() {
-    var mData: List<Character> = data
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallback) {
+
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
 
@@ -28,7 +26,7 @@ class CharacterListAdapter internal constructor(private val context: Context, da
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mData[position]
+        val item = getItem(position)
         holder.tvCharacterName.text = item.name
 
         val imageUrl = item.thumbnail.path.replace("http", "https") +
@@ -46,11 +44,6 @@ class CharacterListAdapter internal constructor(private val context: Context, da
             .centerCrop()
             .into(holder.ivCharacterThumbnail)
     }
-
-    override fun getItemCount(): Int {
-        return mData.size
-    }
-
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -76,4 +69,13 @@ class CharacterListAdapter internal constructor(private val context: Context, da
     interface ItemClickListener {
         fun onItemClick(view: View?, position: Int)
     }
+}
+
+private object DiffUtilCallback : DiffUtil.ItemCallback<Character>() {
+    override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean =
+        oldItem == newItem
+
 }
