@@ -1,8 +1,8 @@
-package com.example.marvelapplication.core.infra.adapter.retrofit.services
+package com.example.testapp.core.infra.adapter.retrofit.services
 
 import com.example.testapp.core.domain.model.Character
-import com.example.marvelapplication.core.infra.adapter.retrofit.data.MarvelResponse
-import com.example.marvelapplication.core.infra.adapter.retrofit.data.VALUES
+import com.example.testapp.core.infra.adapter.retrofit.data.MarvelResponse
+import com.example.testapp.core.infra.adapter.retrofit.data.VALUES
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

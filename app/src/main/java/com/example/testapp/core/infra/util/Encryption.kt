@@ -1,15 +1,15 @@
-package com.example.marvelapplication.core.infra.util
+package com.example.testapp.core.infra.util
 
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 class Encryption {
     fun md5(s: String): String {
-        val MD5 = "MD5"
+        val mD5 = "MD5"
         try {
             // Create MD5 Hash
             val digest: MessageDigest = MessageDigest
-                .getInstance(MD5)
+                .getInstance(mD5)
             digest.update(s.toByteArray())
             val messageDigest: ByteArray = digest.digest()
 

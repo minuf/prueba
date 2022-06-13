@@ -14,7 +14,7 @@ import com.example.testapp.core.domain.model.Character
 import com.example.testapp.R
 import com.squareup.picasso.Picasso
 
-class CharacterListAdapter internal constructor(private val context: Context, data: List<Character>) :
+class CharacterListAdapter internal constructor(private val context: Context) :
     ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallback) {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)

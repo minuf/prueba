@@ -1,10 +1,10 @@
-package com.example.marvelapplication.core.infra.adapter.retrofit
+package com.example.testapp.core.infra.adapter.retrofit
 
 import com.example.testapp.core.domain.model.Character
 import com.example.testapp.core.domain.repository.CharactersRepository
-import com.example.marvelapplication.core.infra.adapter.retrofit.services.CharactersService
+import com.example.testapp.core.infra.adapter.retrofit.services.CharactersService
 
-class RetrofitCharactersRepository(private val charactersService: CharactersService) :
+class RetrofitCharactersRepository constructor(private val charactersService: CharactersService) :
     CharactersRepository {
 
     override suspend fun getAllCharacters(): List<Character> {

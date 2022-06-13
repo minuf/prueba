@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.testapp.core.domain.model.Character
-import com.example.testapp.core.domain.ports.AppPortsFactory
 import com.example.testapp.core.domain.ports.GetAllCharacters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class CharactersViewModel : ViewModel() {
-    private val getAllCharacters: GetAllCharacters = AppPortsFactory().getAllCharacters
+    @Inject lateinit var getAllCharacters: GetAllCharacters
 
     private val _characters = MutableLiveData<List<Character>>()
 
@@ -25,9 +25,5 @@ class CharactersViewModel : ViewModel() {
             }
             _characters.value = characters
         }
-    }
-
-    init {
-        fetchCharacters()
     }
 }

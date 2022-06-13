@@ -9,18 +9,35 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.lifecycleScope
+import com.example.testapp.core.domain.ports.GetAllCharacters
 import com.example.testapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    @Inject
+    lateinit var action: GetAllCharacters
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        (application as App).getComponent().inject(this)
+
+        lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO) { action.run() }
+            println("HOLA HOLA HOLA " + result)
+
+        }
 
         setSupportActionBar(binding.toolbar)
 
@@ -30,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
     }
 

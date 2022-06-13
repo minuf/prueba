@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.testapp.App
 import com.example.testapp.databinding.FragmentCharactersBinding
 
 class CharactersFragment : Fragment() {
@@ -34,8 +35,10 @@ class CharactersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
+        (activity?.application as App).getComponent().inject(viewModel)
         // TODO: Use the ViewModel
-        val adapter = CharacterListAdapter(requireContext(), listOf())
+        viewModel.fetchCharacters()
+        val adapter = CharacterListAdapter(requireContext())
         adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
                 println(adapter.currentList[position].name)
