@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testapp.App
 import com.example.testapp.databinding.FragmentCharactersBinding
+import kotlinx.coroutines.flow.collect
 
 class CharactersFragment : Fragment() {
 
@@ -34,7 +36,8 @@ class CharactersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
+        viewModel = CharactersViewModel(lifecycleScope)
         (activity?.application as App).getComponent().inject(viewModel)
         // TODO: Use the ViewModel
         viewModel.fetchCharacters()
@@ -52,10 +55,12 @@ class CharactersFragment : Fragment() {
             viewModel.fetchCharacters()
         }
 
-        viewModel.characters.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-            binding.srHome.isRefreshing = false
-            println(it)
+        lifecycleScope.launchWhenCreated {
+            viewModel.characters.collect {
+                adapter.submitList(it)
+                binding.srHome.isRefreshing = false
+                println(it)
+            }
         }
     }
 
