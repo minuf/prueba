@@ -14,7 +14,9 @@ interface CharactersService {
     suspend fun fetchAllCharacters(
         @Query("hash") hash: String = VALUES.hash,
         @Query("ts") ts: String = VALUES.timeStamp,
-        @Query("apikey") apikey: String = VALUES.apiKey
+        @Query("apikey") apikey: String = VALUES.apiKey,
+        @Query("limit") limit: Int = 20,
+        @Query("offset") offset: Int = 0
     ): Response<MarvelResponse<List<Character>>>
 
     @GET("characters/{id}")

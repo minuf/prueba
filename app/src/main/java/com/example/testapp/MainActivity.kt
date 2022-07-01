@@ -22,23 +22,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    @Inject
-    lateinit var action: GetAllCharacters
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        (application as App).getComponent().inject(this)
-
-        lifecycleScope.launch {
-            val result = withContext(Dispatchers.IO) { action.run() }
-            println("HOLA HOLA HOLA " + result)
-
-        }
-
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
