@@ -1,47 +1,47 @@
 package com.example.testapp.ui.characters
 
 import android.content.Context
-import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testapp.core.domain.model.Character
 import com.example.testapp.R
+import com.example.testapp.core.domain.model.Character
 import com.squareup.picasso.Picasso
 
-class CharacterListAdapter internal constructor(private val context: Context) :
-    ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallbackk) {
+class CharactersAdapter internal constructor(private val context: Context) :
+    PagingDataAdapter<Character, RecyclerView.ViewHolder>(DiffUtilCallback) {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val characterItem = getItem(position)
+        if (characterItem != null) {
+            (holder as CharacterViewHolder).tvCharacterName.text = characterItem.name
+            val imageUrl = characterItem.thumbnail.path.replace("http", "https") +
+                    "/portrait_xlarge." +
+                    characterItem.thumbnail.extension
+
+            Picasso.get()
+                .load(imageUrl)
+                .resize(400, 400)
+                .placeholder(R.drawable.ic_launcher_background)
+                .centerCrop()
+                .into(holder.ivCharacterThumbnail)
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = mInflater.inflate(R.layout.item_character, parent, false)
-        return ViewHolder(view)
+        return CharacterViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.tvCharacterName.text = item.name
-
-        val imageUrl = item.thumbnail.path.replace("http", "https") +
-                "/portrait_xlarge." +
-                item.thumbnail.extension
-
-        Picasso.get()
-            .load(imageUrl)
-            .resize(400, 400)
-            .placeholder(R.drawable.ic_launcher_background)
-            .centerCrop()
-            .into(holder.ivCharacterThumbnail)
-    }
-
-    inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class CharacterViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
         var tvCharacterName: TextView = itemView.findViewById(R.id.tv_character_name)
@@ -65,9 +65,10 @@ class CharacterListAdapter internal constructor(private val context: Context) :
     interface ItemClickListener {
         fun onItemClick(view: View?, position: Int)
     }
+
 }
 
-private object DiffUtilCallbackk : DiffUtil.ItemCallback<Character>() {
+private object DiffUtilCallback : DiffUtil.ItemCallback<Character>() {
     override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean =
         oldItem.id == newItem.id
 

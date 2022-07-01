@@ -1,5 +1,6 @@
 package com.example.testapp.ui.characters
 
+import android.graphics.drawable.GradientDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testapp.App
 import com.example.testapp.databinding.FragmentCharactersBinding
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 class CharactersFragment : Fragment() {
 
@@ -36,19 +40,20 @@ class CharactersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
-        viewModel = CharactersViewModel(lifecycleScope)
+        viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
+        //viewModel = CharactersViewModel(lifecycleScope)
         (activity?.application as App).getComponent().inject(viewModel)
         // TODO: Use the ViewModel
         viewModel.fetchCharacters()
-        val adapter = CharacterListAdapter(requireContext())
-        adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
+        val adapter = CharactersAdapter(requireContext())
+        /*adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
                 println(adapter.currentList[position].name)
             }
-        })
+        })*/
 
-        binding.rvHome.layoutManager = GridLayoutManager(context, 3)
+        //binding.rvHome.layoutManager = GridLayoutManager(context, 3)
+        binding.rvHome.layoutManager = LinearLayoutManager(context)
         binding.rvHome.adapter = adapter
 
         binding.srHome.setOnRefreshListener {
@@ -56,10 +61,9 @@ class CharactersFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.characters.collect {
-                adapter.submitList(it)
+            viewModel.characters.collectLatest {
+                adapter.submitData(it)
                 binding.srHome.isRefreshing = false
-                println(it)
             }
         }
     }
