@@ -2,7 +2,7 @@ package com.example.marvelapplication
 
 import com.example.testapp.core.domain.model.Character
 import com.example.testapp.core.domain.model.Image
-import com.example.testapp.core.domain.ports.GetAllCharacters
+import com.example.testapp.core.domain.ports.GetCharacters
 import com.example.testapp.core.domain.repository.CharactersRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -10,7 +10,7 @@ import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.doReturn
 
-class GetAllCharactersTest {
+class GetCharactersTest {
 
     private val mockedCharactersRepo = Mockito.mock(CharactersRepository::class.java)
     private val fakeCharacter = Character(0, "", "", Image("", ""))
@@ -18,9 +18,9 @@ class GetAllCharactersTest {
 
     @Test
     fun `should return list of Characters`() = runTest {
-        doReturn(fakeCharacters).`when`(mockedCharactersRepo).getAllCharacters()
+        doReturn(fakeCharacters).`when`(mockedCharactersRepo).getCharacters()
 
-        val characters = GetAllCharacters(mockedCharactersRepo).run()
+        val characters = GetCharacters(mockedCharactersRepo).run()
         Assert.assertEquals(characters, fakeCharacters)
     }
 }

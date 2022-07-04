@@ -2,27 +2,25 @@ package com.example.testapp.ui.characters
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.testapp.core.domain.model.Character
-import com.example.testapp.core.domain.ports.GetAllCharacters
-import com.example.testapp.core.domain.repository.CharactersRepository
-import com.example.testapp.core.infra.adapter.retrofit.RetrofitCharactersRepository
-import com.example.testapp.core.infra.adapter.retrofit.services.CharactersService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import com.example.testapp.core.domain.ports.GetCharacters
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class CharactersViewModel(): ViewModel() {
-    @Inject
-    lateinit var getAllCharacters: GetAllCharacters
+private const val PAGE_SIZE = 50
+private const val FIRST_NUMBER_OF_PAGES_LOADED = 3
+
+class CharactersViewModel : ViewModel() {
 
     @Inject
-    lateinit var charactersService: CharactersService
-
-    //var characters = RetrofitCharactersRepository(charactersService).getAllCharactersAsFlow().cachedIn(viewModelScope)
+    lateinit var getCharacters: GetCharacters
 
     private val _characters = MutableStateFlow<List<Character>>(listOf())
 
@@ -30,12 +28,21 @@ class CharactersViewModel(): ViewModel() {
 
     fun fetchCharacters() {
         viewModelScope.launch {
-            /*_characters.value = withContext(Dispatchers.IO) {
-                getAllCharacters.run()
-            }*/
-
-            characters = RetrofitCharactersRepository(charactersService).getAllCharactersAsFlow()
+            characters = getPaginatedFlowOfCharacters()
                 .cachedIn(viewModelScope)
         }
+    }
+
+    private fun getPaginatedFlowOfCharacters(): Flow<PagingData<Character>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                maxSize = PAGE_SIZE * FIRST_NUMBER_OF_PAGES_LOADED,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                CharacterPagingSource(getCharacters)
+            }
+        ).flow
     }
 }

@@ -11,10 +11,9 @@ private const val PAGE_SIZE = 30
 class RetrofitCharactersRepository constructor(private val charactersService: CharactersService) :
     CharactersRepository {
 
-
-    override suspend fun getAllCharacters(): List<Character> {
+    override suspend fun getCharacters(size: Int, skip: Int): List<Character> {
         val response =
-            charactersService.fetchAllCharacters()
+            charactersService.fetchAllCharacters(limit = size, offset = skip)
         return response.body()?.data?.results ?: listOf()
     }
 

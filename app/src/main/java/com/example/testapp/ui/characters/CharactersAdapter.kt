@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.R
 import com.example.testapp.core.domain.model.Character
+import com.squareup.picasso.Picasso
 
-class CharactersAdapter internal constructor(private val context: Context) :
+class CharactersAdapter internal constructor(context: Context) :
     PagingDataAdapter<Character, RecyclerView.ViewHolder>(DiffUtilCallback) {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
@@ -21,16 +22,26 @@ class CharactersAdapter internal constructor(private val context: Context) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val characterItem = getItem(position)
         if (characterItem != null) {
-            (holder as ViewHolder).tvCharacterName.text = characterItem.name
+            (holder as CharacterViewHolder).tvCharacterName.text = characterItem.name
+            val imageUrl = characterItem.thumbnail.path.replace("http", "https") +
+                    "/portrait_xlarge." +
+                    characterItem.thumbnail.extension
+
+            Picasso.get()
+                .load(imageUrl)
+                .resize(400, 400)
+                .placeholder(R.drawable.ic_launcher_background)
+                .centerCrop()
+                .into(holder.ivCharacterThumbnail)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = mInflater.inflate(R.layout.item_character, parent, false)
-        return ViewHolder(view)
+        return CharacterViewHolder(view)
     }
 
-    inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class CharacterViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
         var tvCharacterName: TextView = itemView.findViewById(R.id.tv_character_name)
@@ -63,5 +74,4 @@ private object DiffUtilCallback : DiffUtil.ItemCallback<Character>() {
 
     override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean =
         oldItem == newItem
-
 }

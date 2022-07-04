@@ -9,13 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.lifecycleScope
-import com.example.testapp.core.domain.ports.GetAllCharacters
 import com.example.testapp.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
