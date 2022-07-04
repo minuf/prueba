@@ -1,6 +1,6 @@
 package com.example.testapp.di
 
-import com.example.testapp.core.domain.ports.GetAllCharacters
+import com.example.testapp.core.domain.ports.GetCharacters
 import com.example.testapp.core.domain.repository.CharactersRepository
 import com.example.testapp.core.infra.adapter.retrofit.RetrofitCharactersRepository
 import com.example.testapp.core.infra.adapter.retrofit.services.CharactersService
@@ -18,5 +18,5 @@ class AppPortsModule {
 
     @Provides
     fun provideGetAllCharacters(charactersRepository: CharactersRepository) =
-        GetAllCharacters(charactersRepository)
+        GetCharacters(charactersRepository)
 }

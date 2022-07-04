@@ -1,6 +1,5 @@
 package com.example.testapp.ui.characters
 
-import android.graphics.drawable.GradientDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,12 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testapp.App
 import com.example.testapp.databinding.FragmentCharactersBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 class CharactersFragment : Fragment() {
@@ -61,7 +57,7 @@ class CharactersFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.characters.collectLatest {
+            viewModel.paginatedCharactersFlow.collectLatest {
                 adapter.submitData(it)
                 binding.srHome.isRefreshing = false
             }
