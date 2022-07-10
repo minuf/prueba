@@ -1,7 +1,8 @@
 package com.example.marvelapplication
 
-import com.example.testapp.core.domain.model.Character
-import com.example.testapp.core.domain.model.Image
+import com.example.domain.Character
+import com.example.domain.Image
+
 import com.example.testapp.core.domain.ports.GetCharacterById
 import com.example.testapp.core.domain.repository.CharactersRepository
 import kotlinx.coroutines.test.runTest

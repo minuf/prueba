@@ -6,7 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.testapp.core.domain.model.Character
+import com.example.domain.Character
 import com.example.testapp.core.domain.ports.GetCharacters
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val PAGE_SIZE = 50
+private const val PAGE_SIZE = 15
 private const val FIRST_NUMBER_OF_PAGES_LOADED = 3
 
 class CharactersViewModel : ViewModel() {

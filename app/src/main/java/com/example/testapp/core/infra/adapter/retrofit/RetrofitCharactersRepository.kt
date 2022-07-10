@@ -1,7 +1,7 @@
 package com.example.testapp.core.infra.adapter.retrofit
 
+import com.example.domain.Character
 import androidx.paging.*
-import com.example.testapp.core.domain.model.Character
 import com.example.testapp.core.domain.repository.CharactersRepository
 import com.example.testapp.core.infra.adapter.retrofit.services.CharactersService
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +11,7 @@ private const val PAGE_SIZE = 30
 class RetrofitCharactersRepository constructor(private val charactersService: CharactersService) :
     CharactersRepository {
 
-    override suspend fun getCharacters(size: Int, skip: Int): List<Character> {
+    override suspend fun getCharacters(size: Int, skip: Int): List<com.example.domain.Character> {
         val response =
             charactersService.fetchAllCharacters(limit = size, offset = skip)
         return response.body()?.data?.results ?: listOf()

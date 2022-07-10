@@ -10,7 +10,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.R
-import com.example.testapp.core.domain.model.Character
+import com.example.domain.Character
 import com.squareup.picasso.Picasso
 
 class CharactersAdapter internal constructor(context: Context) :

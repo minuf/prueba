@@ -2,7 +2,7 @@ package com.example.testapp.ui.characters
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.testapp.core.domain.model.Character
+import com.example.domain.Character
 import com.example.testapp.core.domain.ports.GetCharacters
 
 class CharacterPagingSource(private val getCharacters: GetCharacters) :
@@ -27,5 +27,4 @@ class CharacterPagingSource(private val getCharacters: GetCharacters) :
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
     }
-
 }

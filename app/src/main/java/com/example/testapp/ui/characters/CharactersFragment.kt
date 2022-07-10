@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testapp.App
 import com.example.testapp.databinding.FragmentCharactersBinding
@@ -49,17 +53,21 @@ class CharactersFragment : Fragment() {
         })*/
 
         //binding.rvHome.layoutManager = GridLayoutManager(context, 3)
-        binding.rvHome.layoutManager = LinearLayoutManager(context)
         binding.rvHome.adapter = adapter
 
-        binding.srHome.setOnRefreshListener {
-            viewModel.fetchCharacters()
+        adapter.addLoadStateListener { loadState ->
+            binding.rvHome.isVisible = loadState.source.refresh is LoadState.NotLoading
+            binding.pgCharactersList.isVisible = loadState.source.refresh is LoadState.Loading
+            binding.btRetry.isVisible = loadState.source.refresh is LoadState.Error
+            handleError(loadState)
         }
+
+        binding.btRetry.setOnClickListener { adapter.retry() }
+
 
         lifecycleScope.launchWhenCreated {
             viewModel.characters.collectLatest {
                 adapter.submitData(it)
-                binding.srHome.isRefreshing = false
             }
         }
     }
@@ -67,6 +75,15 @@ class CharactersFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun handleError(loadState: CombinedLoadStates) {
+        val errorState = loadState.source.append as? LoadState.Error
+            ?: loadState.source.prepend as? LoadState.Error
+
+        errorState?.let {
+            Toast.makeText(requireContext(), "${it.error}", Toast.LENGTH_LONG).show()
+        }
     }
 
 }
