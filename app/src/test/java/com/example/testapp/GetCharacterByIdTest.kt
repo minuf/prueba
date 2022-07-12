@@ -1,10 +1,10 @@
 package com.example.marvelapplication
 
-import com.example.domain.Character
-import com.example.domain.Image
+import com.example.entities.Character
+import com.example.entities.Image
 
-import com.example.testapp.core.domain.ports.GetCharacterById
-import com.example.testapp.core.domain.repository.CharactersRepository
+import com.example.usecases.GetCharacterById
+import com.example.repository.CharactersRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test

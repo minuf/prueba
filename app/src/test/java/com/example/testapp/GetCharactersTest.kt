@@ -1,14 +1,13 @@
 package com.example.marvelapplication
 
-import com.example.testapp.core.domain.ports.GetCharacters
-import com.example.testapp.core.domain.repository.CharactersRepository
+import com.example.usecases.GetCharacters
+import com.example.repository.CharactersRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.kotlin.doReturn
-import com.example.domain.Character
-import com.example.domain.Image
+import com.example.entities.Character
+import com.example.entities.Image
 
 
 class GetCharactersTest {

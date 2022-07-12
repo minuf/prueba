@@ -1,7 +1,7 @@
 package com.example.testapp.core.infra.adapter.retrofit
 
-import com.example.domain.Character
-import com.example.testapp.core.domain.repository.CharactersRepository
+import com.example.entities.Character
+import com.example.repository.CharactersRepository
 import com.example.testapp.core.infra.adapter.retrofit.services.CharactersService
 
 class RetrofitCharactersRepository constructor(private val charactersService: CharactersService) :

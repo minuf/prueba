@@ -1,6 +1,6 @@
-package com.example.testapp.core.domain.repository
+package com.example.repository
 
-import com.example.domain.Character
+import com.example.entities.Character
 
 interface CharactersRepository {
     suspend fun getCharacters(size: Int, skip: Int) : List<Character>

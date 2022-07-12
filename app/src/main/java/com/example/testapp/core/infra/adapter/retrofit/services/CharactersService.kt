@@ -1,6 +1,6 @@
 package com.example.testapp.core.infra.adapter.retrofit.services
 
-import com.example.domain.Character
+import com.example.entities.Character
 import com.example.testapp.core.infra.adapter.retrofit.data.MarvelResponse
 import com.example.testapp.core.infra.adapter.retrofit.data.VALUES
 import retrofit2.Response

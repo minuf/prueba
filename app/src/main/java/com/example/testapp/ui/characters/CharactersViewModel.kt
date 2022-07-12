@@ -2,8 +2,8 @@ package com.example.testapp.ui.characters
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.Character
-import com.example.testapp.core.domain.ports.GetCharacters
+import com.example.entities.Character
+import com.example.usecases.GetCharacters
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

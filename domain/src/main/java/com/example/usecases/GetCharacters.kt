@@ -1,7 +1,7 @@
-package com.example.testapp.core.domain.ports
+package com.example.usecases
 
-import com.example.domain.Character
-import com.example.testapp.core.domain.repository.CharactersRepository
+import com.example.entities.Character
+import com.example.repository.CharactersRepository
 
 class GetCharacters(private val charactersRepository: CharactersRepository) {
     suspend fun run(total: Int = 50, skip: Int = 0): List<Character> {

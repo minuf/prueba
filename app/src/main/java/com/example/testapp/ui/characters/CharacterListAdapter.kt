@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.Character
+import com.example.entities.Character
 import com.example.testapp.R
 import com.squareup.picasso.Picasso
 
