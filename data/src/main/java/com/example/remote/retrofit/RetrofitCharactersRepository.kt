@@ -1,8 +1,8 @@
-package com.example.testapp.core.infra.adapter.retrofit
+package com.example.remote.retrofit
 
-import com.example.entities.Character
-import com.example.repository.CharactersRepository
-import com.example.testapp.core.infra.adapter.retrofit.services.CharactersService
+import com.marvel.repository.CharactersRepository
+import com.example.remote.retrofit.services.CharactersService
+import com.marvel.entities.Character
 
 class RetrofitCharactersRepository constructor(private val charactersService: CharactersService) :
     CharactersRepository {

@@ -1,7 +1,7 @@
-package com.example.usecases
+package com.marvel.usecases
 
-import com.example.entities.Character
-import com.example.repository.CharactersRepository
+import com.marvel.entities.Character
+import com.marvel.repository.CharactersRepository
 
 class GetCharacterById(private val charactersRepository: CharactersRepository) {
     suspend fun run(id: Int): Character {

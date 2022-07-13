@@ -1,6 +1,6 @@
-package com.example.repository
+package com.marvel.repository
 
-import com.example.entities.Character
+import com.marvel.entities.Character
 
 interface CharactersRepository {
     suspend fun getCharacters(size: Int, skip: Int) : List<Character>

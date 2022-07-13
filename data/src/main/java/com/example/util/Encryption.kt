@@ -1,4 +1,4 @@
-package com.example.testapp.core.infra.util
+package com.example.util
 
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException

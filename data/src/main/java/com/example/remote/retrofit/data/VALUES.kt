@@ -1,6 +1,7 @@
-package com.example.testapp.core.infra.adapter.retrofit.data
+package com.example.remote.retrofit.data
 
-import com.example.testapp.core.infra.util.Encryption
+import com.example.util.Encryption
+
 
 object VALUES {
     private const val privateKey = "03533c803fea71c5d95f02a49c84c42851515e49"

@@ -9,12 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.entities.Character
 import com.example.testapp.R
 import com.squareup.picasso.Picasso
+import com.marvel.entities.Character
 
-class CharacterListAdapter internal constructor(private val context: Context) :
-    ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallbackk) {
+class CharacterListAdapter internal constructor(context: Context) :
+    ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallback) {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
@@ -66,7 +66,7 @@ class CharacterListAdapter internal constructor(private val context: Context) :
     }
 }
 
-private object DiffUtilCallbackk : DiffUtil.ItemCallback<Character>() {
+private object DiffUtilCallback : DiffUtil.ItemCallback<Character>() {
     override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean =
         oldItem.id == newItem.id
 

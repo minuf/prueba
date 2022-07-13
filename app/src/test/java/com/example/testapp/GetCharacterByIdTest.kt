@@ -1,10 +1,9 @@
 package com.example.marvelapplication
 
-import com.example.entities.Character
-import com.example.entities.Image
+import com.marvel.entities.Image
 
-import com.example.usecases.GetCharacterById
-import com.example.repository.CharactersRepository
+import com.marvel.usecases.GetCharacterById
+import com.marvel.repository.CharactersRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test

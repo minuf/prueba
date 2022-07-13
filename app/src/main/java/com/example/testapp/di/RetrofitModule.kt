@@ -1,7 +1,7 @@
 package com.example.testapp.di
 
-import com.example.testapp.core.infra.adapter.retrofit.factories.RetrofitFactory
-import com.example.testapp.core.infra.adapter.retrofit.services.CharactersService
+import com.example.remote.retrofit.factories.RetrofitFactory
+import com.example.remote.retrofit.services.CharactersService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

@@ -1,4 +1,4 @@
-package com.example.testapp.core.infra.adapter.retrofit.factories
+package com.example.remote.retrofit.factories
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
