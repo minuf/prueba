@@ -5,7 +5,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppPortsModule::class, RetrofitModule::class])
+@Component(modules = [UseCasesModule::class, RetrofitModule::class])
 interface GetAllCharactersComponent {
 
     fun inject(charactersViewModel: CharactersViewModel)

@@ -1,4 +1,4 @@
-package com.marvel.repository
+package com.marvel.repositories
 
 import com.marvel.entities.Character
 

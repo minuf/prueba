@@ -1,7 +1,7 @@
 package com.example.marvelapplication
 
 import com.marvel.usecases.GetCharacters
-import com.marvel.repository.CharactersRepository
+import com.marvel.repositories.CharactersRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test

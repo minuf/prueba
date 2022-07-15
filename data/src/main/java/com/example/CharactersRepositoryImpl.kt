@@ -1,18 +1,19 @@
 package com.example
 
+import com.example.local.LocalCharactersDataSource
 import com.example.remote.RemoteCharactersDataSource
 import com.marvel.entities.Character
-import com.marvel.repository.CharactersRepository
+import com.marvel.repositories.CharactersRepository
 
 class CharactersRepositoryImpl(
     private val remoteDataSource: RemoteCharactersDataSource,
     private val localDataSource: LocalCharactersDataSource
 ) : CharactersRepository {
     override suspend fun getCharacters(size: Int, skip: Int): List<Character> {
-        TODO("Not yet implemented")
+        return remoteDataSource.getCharacters(size, skip)
     }
 
     override suspend fun getCharacterById(id: Int): Character {
-        TODO("Not yet implemented")
+        return remoteDataSource.getCharacterById(id)
     }
 }
