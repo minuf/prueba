@@ -1,5 +1,6 @@
 package com.example.marvelapplication
 
+import com.marvel.entities.Character
 import com.marvel.entities.Image
 
 import com.marvel.usecases.GetCharacterById
