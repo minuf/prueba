@@ -7,7 +7,7 @@ class RemoteCharactersDataSource constructor(private val charactersService: Char
 
     suspend fun getCharacters(size: Int, skip: Int): List<Character> {
         val response =
-            charactersService.fetchAllCharacters(limit = size, offset = skip)
+            charactersService.fetchAllCharacters(size, skip)
         return response.body()?.data?.results ?: listOf()
     }
 

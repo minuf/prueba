@@ -10,9 +10,10 @@ class CharactersRepositoryImpl(
     private val localDataSource: LocalCharactersDataSource
 ) : CharactersRepository {
     override suspend fun getCharacters(size: Int, skip: Int): List<Character> {
-        val result = localDataSource.getCharacters(size, skip)
+        var result = localDataSource.getCharacters(size, skip)
         if (result.isEmpty()) {
-            return remoteDataSource.getCharacters(size, skip)
+            result = remoteDataSource.getCharacters(size, skip)
+            localDataSource.saveCharacters(result)
         }
         return result
     }

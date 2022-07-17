@@ -13,7 +13,8 @@ interface CharactersService {
     @GET("characters")
     suspend fun fetchAllCharacters(
         @Query("limit") limit: Int = 20,
-        @Query("offset") offset: Int = 0
+        @Query("offset") offset: Int = 0,
+        @Query("orderBy") orderBy: String = "name"
     ): Response<MarvelResponse<List<Character>>>
 
     @GET("characters/{id}")

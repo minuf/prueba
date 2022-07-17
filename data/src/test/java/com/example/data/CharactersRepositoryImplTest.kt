@@ -18,6 +18,10 @@ import org.mockito.kotlin.doReturn
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class CharactersRepositoryImplTest {
+
+    private val initialSize = 50
+    private val initialSkip = 0
+
     private val expectedResult = listOf(Character(1, "", "", Image("", "")))
     private val mockedLocalDataSource: LocalCharactersDataSource =
         Mockito.mock(LocalCharactersDataSource::class.java)
@@ -26,18 +30,30 @@ class CharactersRepositoryImplTest {
         Mockito.mock(RemoteCharactersDataSource::class.java)
 
     @Test
-    fun shouldReturnLocalCharacters() = runTest {
-        doReturn(expectedResult).`when`(mockedLocalDataSource).getCharacters(50, 0)
+    fun `Should return local characters if has saved characters in local (db)`() = runTest {
+        doReturn(expectedResult).`when`(mockedLocalDataSource).getCharacters(initialSize, initialSkip)
         val repository = CharactersRepositoryImpl(mockedRemoteDataSource, mockedLocalDataSource)
-        assertEquals(expectedResult, repository.getCharacters(50, 0))
+        assertEquals(expectedResult, repository.getCharacters(initialSize, initialSkip))
     }
 
     @Test
-    fun shouldReturnRemoteCharactersWhenNoLocalCharacters() = runTest {
+    fun `Should return remote characters when no saved characters in local (db)`() = runTest {
         val emptyList = listOf<Character>()
-        doReturn(emptyList).`when`(mockedLocalDataSource).getCharacters(50, 0)
-        doReturn(expectedResult).`when`(mockedRemoteDataSource).getCharacters(50, 0)
+        doReturn(emptyList).`when`(mockedLocalDataSource).getCharacters(initialSize, initialSkip)
+        doReturn(expectedResult).`when`(mockedRemoteDataSource).getCharacters(initialSize, initialSkip)
+
         val repository = CharactersRepositoryImpl(mockedRemoteDataSource, mockedLocalDataSource)
-        assertEquals(expectedResult, repository.getCharacters(50, 0))
+        assertEquals(expectedResult, repository.getCharacters(initialSize, initialSkip))
+    }
+
+    @Test
+    fun `Should save characters in local (db) when fetch remote characters`() = runTest {
+        val localDataSource = LocalCharactersDataSource()
+        doReturn(expectedResult).`when`(mockedRemoteDataSource).getCharacters(initialSize, initialSkip)
+
+        val repository = CharactersRepositoryImpl(mockedRemoteDataSource, localDataSource)
+        repository.getCharacters(initialSize, initialSkip)
+
+        assertEquals(expectedResult, localDataSource.getCharacters(initialSize, initialSkip))
     }
 }
