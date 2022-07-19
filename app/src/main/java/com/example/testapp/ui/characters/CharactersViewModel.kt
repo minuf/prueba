@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marvel.entities.Character
 import com.marvel.usecases.GetCharacters
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ class CharactersViewModel : ViewModel() {
     fun fetchCharacters(total: Int = 50, skip: Int = 0) {
         if (!isLoading) {
             isLoading = true
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 _characters.value += getCharacters.run(total, skip)
                 isLoading = false
             }

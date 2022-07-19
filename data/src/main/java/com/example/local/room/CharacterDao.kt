@@ -8,14 +8,14 @@ import androidx.room.Query
 interface CharacterDao {
 
     @Query("SELECT * FROM Character LIMIT :size OFFSET :skip")
-    suspend fun getCharacters(size: Int, skip: Int): List<Character>
+    fun getCharacters(size: Int, skip: Int): List<Character>
 
     @Query("SELECT * FROM Character WHERE id = :id")
-    suspend fun getCharacterById(id: Int): Character
+    fun getCharacterById(id: Int): Character
 
     @Insert
-    suspend fun insertCharacters(characters: List<Character>)
+    fun insertCharacters(characters: List<Character>)
 
     @Insert
-    suspend fun insertCharacter(character: Character)
+    fun insertCharacter(character: Character)
 }
