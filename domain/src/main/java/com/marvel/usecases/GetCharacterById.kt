@@ -1,6 +1,6 @@
 package com.marvel.usecases
 
-import com.marvel.entities.Character
+import com.marvel.model.Character
 import com.marvel.repositories.CharactersRepository
 
 class GetCharacterById(private val charactersRepository: CharactersRepository) {

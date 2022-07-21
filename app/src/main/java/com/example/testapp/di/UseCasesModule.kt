@@ -3,6 +3,7 @@ package com.example.testapp.di
 import android.app.Application
 import com.example.CharactersRepositoryImpl
 import com.example.local.LocalCharactersDataSource
+import com.example.local.room.CharacterDao
 import com.example.local.room.CharacterDb
 import com.example.remote.RemoteCharactersDataSource
 import com.marvel.usecases.GetCharacters
@@ -22,8 +23,8 @@ class UseCasesModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(db: CharacterDb): LocalCharactersDataSource =
-        LocalCharactersDataSource(db)
+    fun provideLocalDataSource(charactersDao: CharacterDao): LocalCharactersDataSource =
+        LocalCharactersDataSource(charactersDao)
 
     @Provides
     @Singleton

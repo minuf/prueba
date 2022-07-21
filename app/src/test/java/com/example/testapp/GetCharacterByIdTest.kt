@@ -1,7 +1,6 @@
 package com.example.marvelapplication
 
-import com.marvel.entities.Character
-import com.marvel.entities.Image
+import com.marvel.model.Character
 
 import com.marvel.usecases.GetCharacterById
 import com.marvel.repositories.CharactersRepository
@@ -13,7 +12,7 @@ import org.mockito.kotlin.doReturn
 
 class GetCharacterByIdTest {
     private val mockedCharactersRepo = Mockito.mock(CharactersRepository::class.java)
-    private val fakeCharacter = Character(0, "", "", Image("", ""))
+    private val fakeCharacter = Character(0, "", "", "")
 
     @Test
     fun `should return single Character by id`() = runTest {

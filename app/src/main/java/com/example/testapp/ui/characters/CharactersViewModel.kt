@@ -2,7 +2,7 @@ package com.example.testapp.ui.characters
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.marvel.entities.Character
+import com.marvel.model.Character
 import com.marvel.usecases.GetCharacters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

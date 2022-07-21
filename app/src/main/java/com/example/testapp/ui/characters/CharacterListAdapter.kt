@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.R
 import com.squareup.picasso.Picasso
-import com.marvel.entities.Character
+import com.marvel.model.Character
 
 class CharacterListAdapter internal constructor(context: Context) :
     ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallback) {
@@ -28,9 +28,7 @@ class CharacterListAdapter internal constructor(context: Context) :
         val item = getItem(position)
         holder.tvCharacterName.text = item.name
 
-        val imageUrl = item.thumbnail.path.replace("http", "https") +
-                "/portrait_xlarge." +
-                item.thumbnail.extension
+        val imageUrl = item.thumbNail
 
         Picasso.get()
             .load(imageUrl)

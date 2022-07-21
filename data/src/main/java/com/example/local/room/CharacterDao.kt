@@ -2,20 +2,21 @@ package com.example.local.room
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
 interface CharacterDao {
 
-    @Query("SELECT * FROM Character LIMIT :size OFFSET :skip")
-    fun getCharacters(size: Int, skip: Int): List<Character>
+    @Query("SELECT * FROM DbCharacterModel LIMIT :size OFFSET :skip")
+    fun getCharacters(size: Int, skip: Int): List<DbCharacterModel>
 
-    @Query("SELECT * FROM Character WHERE id = :id")
-    fun getCharacterById(id: Int): Character
+    @Query("SELECT * FROM DbCharacterModel WHERE id = :id")
+    fun getCharacterById(id: Int): DbCharacterModel
 
-    @Insert
-    fun insertCharacters(characters: List<Character>)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertCharacters(characters: List<DbCharacterModel>)
 
-    @Insert
-    fun insertCharacter(character: Character)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertCharacter(character: DbCharacterModel)
 }

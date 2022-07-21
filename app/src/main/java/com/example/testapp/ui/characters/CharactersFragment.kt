@@ -42,11 +42,11 @@ class CharactersFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
         (activity?.application as App).getComponent().inject(viewModel)
 
-        viewModel.fetchCharacters()
+        viewModel.fetchCharacters(5)
         val adapter = CharacterListAdapter(requireContext())
         adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
-                println(adapter.currentList[position].name)
+                println(adapter.currentList[position].id)
             }
         })
 
@@ -69,14 +69,14 @@ class CharactersFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) { //check for scroll down
                     visibleItemCount = mLayoutManager.childCount
-                    println("VISIBLE: " + visibleItemCount)
+                    //println("VISIBLE: " + visibleItemCount)
                     totalItemCount = mLayoutManager.itemCount
-                    println("TOTAL: " + totalItemCount)
+                    //println("TOTAL: " + totalItemCount)
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
-                    println("PAST VISIBLES: " + pastVisiblesItems)
+                    //println("PAST VISIBLES: " + pastVisiblesItems)
                     if (visibleItemCount + pastVisiblesItems >= totalItemCount - 25) {
-                        Log.v("...", "Last Item Wow !")
-                        viewModel.fetchCharacters(50, totalItemCount)
+                        println("TOTAL ITEM COUNT: $totalItemCount")
+                        viewModel.fetchCharacters(5, totalItemCount)
                     }
                 }
             }

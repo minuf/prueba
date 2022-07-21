@@ -2,6 +2,7 @@ package com.example.testapp.di
 
 import android.app.Application
 import androidx.room.Room
+import com.example.local.room.CharacterDao
 import com.example.local.room.CharacterDb
 import dagger.Module
 import dagger.Provides
@@ -19,6 +20,12 @@ class RoomModule {
         return Room
             .databaseBuilder(app.applicationContext, CharacterDb::class.java, DB_NAME)
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCharactersDao(db: CharacterDb): CharacterDao {
+        return db.characterDao()
     }
 
     companion object {

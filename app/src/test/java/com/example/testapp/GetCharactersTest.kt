@@ -1,20 +1,19 @@
 package com.example.marvelapplication
 
-import com.marvel.entities.Character
-import com.marvel.usecases.GetCharacters
+import com.marvel.model.Character
 import com.marvel.repositories.CharactersRepository
+import com.marvel.usecases.GetCharacters
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import org.mockito.Mockito
-import com.marvel.entities.Image
 import org.mockito.Mockito.doReturn
 
 
 class GetCharactersTest {
 
     private val mockedCharactersRepo = Mockito.mock(CharactersRepository::class.java)
-    private val fakeCharacter = Character(0, "", "", Image("", ""))
+    private val fakeCharacter = Character(0, "", "", "")
     private val fakeCharacters: List<Character> = listOf(fakeCharacter)
 
     private val initialSize = 50
