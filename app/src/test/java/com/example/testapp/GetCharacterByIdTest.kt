@@ -18,7 +18,7 @@ class GetCharacterByIdTest {
     fun `should return single Character by id`() = runTest {
         doReturn(fakeCharacter).`when`(mockedCharactersRepo).getCharacterById(0)
 
-        val character = GetCharacterById(mockedCharactersRepo).run(0)
+        val character = GetCharacterById(mockedCharactersRepo)(0)
         Assert.assertEquals(character, fakeCharacter)
     }
 }

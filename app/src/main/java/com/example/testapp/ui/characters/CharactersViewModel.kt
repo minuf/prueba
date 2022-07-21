@@ -26,7 +26,10 @@ class CharactersViewModel : ViewModel() {
         if (!isLoading) {
             isLoading = true
             viewModelScope.launch(Dispatchers.IO) {
-                _characters.value += getCharacters.run(total, skip)
+                val newChars = getCharacters(total, skip).result
+                if (newChars != null) {
+                    _characters.value += newChars
+                }
                 isLoading = false
             }
         }

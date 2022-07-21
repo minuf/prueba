@@ -3,6 +3,7 @@ package com.example.marvelapplication
 import com.marvel.model.Character
 import com.marvel.repositories.CharactersRepository
 import com.marvel.usecases.GetCharacters
+import com.marvel.model.Result
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
@@ -18,12 +19,15 @@ class GetCharactersTest {
 
     private val initialSize = 50
     private val initialSkip = 0
+    private val getCharacters = GetCharacters(mockedCharactersRepo)
 
     @Test
-    fun `should return list of Characters`() = runTest {
-        doReturn(fakeCharacters).`when`(mockedCharactersRepo).getCharacters(initialSize, initialSkip)
+    fun `should return Result class with list of Characters`() = runTest {
+        doReturn(fakeCharacters).`when`(mockedCharactersRepo)
+            .getCharacters(initialSize, initialSkip)
+        val expectedResult = Result(fakeCharacters)
 
-        val characters = GetCharacters(mockedCharactersRepo).run()
-        Assert.assertEquals(characters, fakeCharacters)
+        val charactersResult = getCharacters(initialSize, initialSkip)
+        Assert.assertEquals(expectedResult, charactersResult)
     }
 }
