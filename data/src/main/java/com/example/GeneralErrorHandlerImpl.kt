@@ -5,12 +5,14 @@ import com.marvel.model.errors.ErrorHandler
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.HttpURLConnection
+import java.net.UnknownHostException
 
 class GeneralErrorHandlerImpl : ErrorHandler {
 
     override fun getError(throwable: Throwable): ErrorEntity {
         return when(throwable) {
-            is IOException -> ErrorEntity.Network
+            is IOException,
+            is UnknownHostException -> ErrorEntity.Network
             is HttpException -> {
                 when(throwable.code()) {
                     // no cache found in case of no network, thrown by retrofit -> treated as network error

@@ -42,7 +42,7 @@ class CharactersFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
         (activity?.application as App).getComponent().inject(viewModel)
 
-        viewModel.fetchCharacters(5)
+        viewModel.fetchCharacters()
         val adapter = CharacterListAdapter(requireContext())
         adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
@@ -74,9 +74,9 @@ class CharactersFragment : Fragment() {
                     //println("TOTAL: " + totalItemCount)
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
                     //println("PAST VISIBLES: " + pastVisiblesItems)
-                    if (visibleItemCount + pastVisiblesItems >= totalItemCount - 25) {
-                        println("TOTAL ITEM COUNT: $totalItemCount")
-                        viewModel.fetchCharacters(5, totalItemCount)
+                    if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
+                        //println("TOTAL ITEM COUNT: $totalItemCount")
+                        viewModel.fetchCharacters(skip = totalItemCount)
                     }
                 }
             }
