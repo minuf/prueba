@@ -3,6 +3,7 @@ package com.example.testapp.ui.characters
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marvel.model.Character
+import com.marvel.model.Result
 import com.marvel.usecases.GetCharacters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,9 +27,9 @@ class CharactersViewModel : ViewModel() {
         if (!isLoading) {
             isLoading = true
             viewModelScope.launch(Dispatchers.IO) {
-                val newChars = getCharacters(total, skip).result
-                if (newChars != null) {
-                    _characters.value += newChars
+                val newChars = getCharacters(total, skip)
+                if (newChars is Result.Success) {
+                    _characters.value += newChars.data
                 }
                 isLoading = false
             }

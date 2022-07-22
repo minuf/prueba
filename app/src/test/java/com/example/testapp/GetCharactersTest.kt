@@ -23,9 +23,9 @@ class GetCharactersTest {
 
     @Test
     fun `should return Result class with list of Characters`() = runTest {
-        doReturn(fakeCharacters).`when`(mockedCharactersRepo)
+        doReturn(Result.Success(fakeCharacters)).`when`(mockedCharactersRepo)
             .getCharacters(initialSize, initialSkip)
-        val expectedResult = Result(fakeCharacters)
+        val expectedResult = Result.Success(fakeCharacters)
 
         val charactersResult = getCharacters(initialSize, initialSkip)
         Assert.assertEquals(expectedResult, charactersResult)
