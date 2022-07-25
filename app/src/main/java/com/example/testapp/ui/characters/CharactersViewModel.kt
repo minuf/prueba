@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-const val PAGE_SIZE = 50
-
 class CharactersViewModel : ViewModel() {
 
     @Inject
@@ -25,7 +23,7 @@ class CharactersViewModel : ViewModel() {
 
     val characters: StateFlow<List<Character>> = _characters
 
-    fun fetchCharacters(total: Int = PAGE_SIZE, skip: Int = 0) {
+    fun fetchCharacters(total: Int, skip: Int = 0) {
         if (!isLoading) {
             isLoading = true
             viewModelScope.launch(Dispatchers.IO) {
@@ -35,6 +33,7 @@ class CharactersViewModel : ViewModel() {
                     }
                     if (result is Result.Error) {
                         if (result.error is ErrorEntity.Network)
+                            //TODO: Show not internet message
                         println("Error from viewmodel" + result.error)
                     }
                     isLoading = false

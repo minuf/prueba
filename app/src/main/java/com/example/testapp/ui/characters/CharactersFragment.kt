@@ -14,6 +14,8 @@ import com.example.testapp.App
 import com.example.testapp.databinding.FragmentCharactersBinding
 import kotlinx.coroutines.flow.collectLatest
 
+const val PAGE_SIZE = 25
+
 class CharactersFragment : Fragment() {
 
     private var _binding: FragmentCharactersBinding? = null
@@ -42,10 +44,10 @@ class CharactersFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
         (activity?.application as App).getComponent().inject(viewModel)
 
-        viewModel.fetchCharacters()
         val adapter = CharacterListAdapter(requireContext())
         adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
+                //TODO: NAVIGATE TO CHARACTER DETAIL SCREEN
                 println(adapter.currentList[position].id)
             }
         })
@@ -55,28 +57,37 @@ class CharactersFragment : Fragment() {
         binding.rvHome.layoutManager = mLayoutManager
         binding.rvHome.adapter = adapter
 
+        viewModel.fetchCharacters(PAGE_SIZE)
+
         lifecycleScope.launchWhenCreated {
             viewModel.characters.collectLatest {
                 adapter.submitList(it)
             }
         }
 
-        var pastVisiblesItems: Int
-        var visibleItemCount: Int
-        var totalItemCount: Int
 
         binding.rvHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            //TODO: REFACTOR SCROLL LISTENER TO NEW CLASS
+            var lastSkip = 0
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) { //check for scroll down
-                    visibleItemCount = mLayoutManager.childCount
+                    val visibleItemCount = mLayoutManager.childCount
                     //println("VISIBLE: " + visibleItemCount)
-                    totalItemCount = mLayoutManager.itemCount
+                    val totalItemCount = mLayoutManager.itemCount
                     //println("TOTAL: " + totalItemCount)
-                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
+                    val pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
                     //println("PAST VISIBLES: " + pastVisiblesItems)
-                    if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
+                    if (visibleItemCount + pastVisiblesItems >= totalItemCount - 10) {
                         //println("TOTAL ITEM COUNT: $totalItemCount")
-                        viewModel.fetchCharacters(skip = totalItemCount)
+                        if (lastSkip != totalItemCount) {
+                            viewModel.fetchCharacters(PAGE_SIZE, totalItemCount)
+                            lastSkip = totalItemCount
+                            println("SHOULD FETCH")
+
+                        } else {
+                            println("SHOULD FETCH NOT")
+                        }
                     }
                 }
             }

@@ -14,9 +14,9 @@ interface CharacterDao {
     @Query("SELECT * FROM DbCharacterModel WHERE id = :id")
     fun getCharacterById(id: Int): DbCharacterModel
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCharacters(characters: List<DbCharacterModel>)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCharacter(character: DbCharacterModel)
 }

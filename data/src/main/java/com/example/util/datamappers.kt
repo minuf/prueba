@@ -4,7 +4,7 @@ import com.example.local.room.DbCharacterModel
 import com.example.remote.retrofit.data.RemoteCharacterModel
 import com.marvel.model.Character
 
-
+//TODO: REVIEW NEEDED CASTS
 fun DbCharacterModel.toDomainModel() = Character(
     id, name, description, thumbNail
 )

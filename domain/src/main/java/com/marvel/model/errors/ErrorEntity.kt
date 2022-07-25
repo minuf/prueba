@@ -2,6 +2,8 @@ package com.marvel.model.errors
 
 sealed class ErrorEntity {
 
+    //TODO: ADD-REMOVE USED ERRORS
+
     object Network : ErrorEntity()
 
     object NotFound : ErrorEntity()

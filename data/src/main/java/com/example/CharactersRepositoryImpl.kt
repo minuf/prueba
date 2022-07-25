@@ -27,7 +27,11 @@ class CharactersRepositoryImpl(
         }
     }
 
-    override suspend fun getCharacterById(id: Int): Character {
-        return remoteDataSource.getCharacterById(id)
+    override suspend fun getCharacterById(id: Int): Result<Character> {
+        return try {
+            Result.Success(remoteDataSource.getCharacterById(id))
+        } catch (t: Throwable) {
+            Result.Error(errorHandler.getError(t))
+        }
     }
 }

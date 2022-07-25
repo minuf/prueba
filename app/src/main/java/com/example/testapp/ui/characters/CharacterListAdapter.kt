@@ -30,6 +30,8 @@ class CharacterListAdapter internal constructor(context: Context) :
 
         val imageUrl = item.thumbNail
 
+        Picasso.get().setIndicatorsEnabled(true)
+
         Picasso.get()
             .load(imageUrl)
             .resize(400, 400)

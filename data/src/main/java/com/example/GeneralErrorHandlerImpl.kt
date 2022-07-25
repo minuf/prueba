@@ -9,6 +9,7 @@ import java.net.UnknownHostException
 
 class GeneralErrorHandlerImpl : ErrorHandler {
 
+    //TODO: REIMPLEMENT THIS FOR USED ERRORS
     override fun getError(throwable: Throwable): ErrorEntity {
         return when(throwable) {
             is IOException,
