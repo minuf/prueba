@@ -20,8 +20,10 @@ class CharactersViewModel : ViewModel() {
     private var isLoading = false
 
     private val _characters = MutableStateFlow<List<Character>>(listOf())
+    private val _isInternetReachable = MutableStateFlow(true)
 
     val characters: StateFlow<List<Character>> = _characters
+    val isInternetReachable: StateFlow<Boolean> = _isInternetReachable
 
     fun fetchCharacters(total: Int, skip: Int = 0) {
         if (!isLoading) {
@@ -29,12 +31,13 @@ class CharactersViewModel : ViewModel() {
             viewModelScope.launch(Dispatchers.IO) {
                 getCharacters(total, skip).let { result ->
                     if (result is Result.Success) {
+                        _isInternetReachable.value = true
                         _characters.value += result.data
                     }
                     if (result is Result.Error) {
-                        if (result.error is ErrorEntity.Network)
-                            //TODO: Show not internet message
-                        println("Error from viewmodel" + result.error)
+                        if (result.error is ErrorEntity.Network) {
+                            _isInternetReachable.value = false
+                        }
                     }
                     isLoading = false
                 }

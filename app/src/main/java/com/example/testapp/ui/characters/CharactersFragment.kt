@@ -1,7 +1,6 @@
 package com.example.testapp.ui.characters
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,31 +64,53 @@ class CharactersFragment : Fragment() {
             }
         }
 
+        lifecycleScope.launchWhenCreated {
+            viewModel.isInternetReachable.collectLatest {
+                if (it) {
+                    println("INTERNET REACHABLE")
+                } else {
 
+                    println("INTERNET REACHABLE NOT")
+                }
+            }
+        }
+
+
+        //TODO: REFACTOR SCROLL LISTENER TO NEW CLASS
         binding.rvHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            //TODO: REFACTOR SCROLL LISTENER TO NEW CLASS
-            var lastSkip = 0
+            var lastItemCount = 0
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) { //check for scroll down
-                    val visibleItemCount = mLayoutManager.childCount
-                    //println("VISIBLE: " + visibleItemCount)
-                    val totalItemCount = mLayoutManager.itemCount
-                    //println("TOTAL: " + totalItemCount)
-                    val pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
-                    //println("PAST VISIBLES: " + pastVisiblesItems)
-                    if (visibleItemCount + pastVisiblesItems >= totalItemCount - 10) {
-                        //println("TOTAL ITEM COUNT: $totalItemCount")
-                        if (lastSkip != totalItemCount) {
-                            viewModel.fetchCharacters(PAGE_SIZE, totalItemCount)
-                            lastSkip = totalItemCount
-                            println("SHOULD FETCH")
-
-                        } else {
-                            println("SHOULD FETCH NOT")
-                        }
+                if (isScrollingDown(dy)) {
+                    if (shouldCall()) {
+                        doCharactersCall()
+                        println("SHOULD FETCH")
+                        return
                     }
+                    println("SHOULD FETCH NOT")
                 }
+            }
+
+            private fun doCharactersCall() {
+                val totalItemCount: Int = mLayoutManager.itemCount
+                viewModel.fetchCharacters(PAGE_SIZE, totalItemCount)
+                lastItemCount = totalItemCount
+            }
+
+            private fun shouldCall(): Boolean {
+                return isEnd() && lastItemCount != mLayoutManager.itemCount
+            }
+
+            private fun isEnd(): Boolean {
+                val visibleItemCount = mLayoutManager.childCount
+                val totalItemCount = mLayoutManager.itemCount
+                val pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
+
+                return visibleItemCount + pastVisiblesItems >= totalItemCount - 10
+            }
+
+            private fun isScrollingDown(y: Int): Boolean {
+                return y > 0
             }
         })
     }
