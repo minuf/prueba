@@ -32,7 +32,7 @@ class CharactersRepositoryImplTest {
     private var initialSize = 0
     private var initialSkip = 0
 
-    private lateinit var repository : CharactersRepositoryImpl
+    private lateinit var repository: CharactersRepositoryImpl
 
     @Before
     fun makeSut() {
@@ -60,7 +60,8 @@ class CharactersRepositoryImplTest {
 
     @Test
     fun `Should return remote characters when no saved characters in local (db)`() = runTest {
-        doReturn(listOf<Character>()).`when`(localDataSourceMock).getCharacters(initialSize, initialSkip)
+        doReturn(listOf<Character>()).`when`(localDataSourceMock)
+            .getCharacters(initialSize, initialSkip)
         doReturn(fakeCharacters).`when`(remoteDataSourceMock)
             .getCharacters(initialSize, initialSkip)
 
@@ -84,19 +85,18 @@ class CharactersRepositoryImplTest {
 
     @Test
     fun `Should fetch remote characters when paginated list (size, skip) not in local (db)`() =
-        //TODO: Refactor this test
         runTest {
-            val skip = Random.nextInt()
             val remoteResult = listOf(Character(2, "", "", ""))
 
             doReturn(listOf<Character>()).`when`(localDataSourceMock)
-                .getCharacters(initialSize, skip)
+                .getCharacters(initialSize, initialSkip)
 
-            doReturn(remoteResult).`when`(remoteDataSourceMock).getCharacters(initialSize, skip)
+            doReturn(remoteResult).`when`(remoteDataSourceMock)
+                .getCharacters(initialSize, initialSkip)
 
-            val charactersResult = repository.getCharacters(initialSize, skip)
+            val charactersResult = repository.getCharacters(initialSize, initialSkip)
 
-            verify(remoteDataSourceMock, times(1)).getCharacters(initialSize, skip)
+            verify(remoteDataSourceMock, times(1)).getCharacters(initialSize, initialSkip)
             assertTrue(
                 charactersResult is Result.Success && charactersResult.data.contains(
                     remoteResult[0]

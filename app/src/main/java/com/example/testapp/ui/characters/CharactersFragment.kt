@@ -75,44 +75,8 @@ class CharactersFragment : Fragment() {
             }
         }
 
-
-        //TODO: REFACTOR SCROLL LISTENER TO NEW CLASS
-        binding.rvHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            var lastItemCount = 0
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (isScrollingDown(dy)) {
-                    if (shouldCall()) {
-                        doCharactersCall()
-                        println("SHOULD FETCH")
-                        return
-                    }
-                    println("SHOULD FETCH NOT")
-                }
-            }
-
-            private fun doCharactersCall() {
-                val totalItemCount: Int = mLayoutManager.itemCount
-                viewModel.fetchCharacters(PAGE_SIZE, totalItemCount)
-                lastItemCount = totalItemCount
-            }
-
-            private fun shouldCall(): Boolean {
-                return isEnd() && lastItemCount != mLayoutManager.itemCount
-            }
-
-            private fun isEnd(): Boolean {
-                val visibleItemCount = mLayoutManager.childCount
-                val totalItemCount = mLayoutManager.itemCount
-                val pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
-
-                return visibleItemCount + pastVisiblesItems >= totalItemCount - 10
-            }
-
-            private fun isScrollingDown(y: Int): Boolean {
-                return y > 0
-            }
-        })
+        val listener = CharactersListScrollListener(mLayoutManager, viewModel)
+        binding.rvHome.addOnScrollListener(listener)
     }
 
     override fun onDestroy() {
