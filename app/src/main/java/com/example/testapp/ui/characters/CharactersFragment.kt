@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.testapp.App
+import com.example.testapp.R
 import com.example.testapp.databinding.FragmentCharactersBinding
 import kotlinx.coroutines.flow.collectLatest
 
@@ -18,7 +19,6 @@ const val PAGE_SIZE = 25
 class CharactersFragment : Fragment() {
 
     private var _binding: FragmentCharactersBinding? = null
-    private lateinit var mLayoutManager: LinearLayoutManager
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -44,20 +44,33 @@ class CharactersFragment : Fragment() {
         (activity?.application as App).getComponent().inject(viewModel)
 
         val adapter = CharacterListAdapter(requireContext())
+
+        initList(adapter)
+        collectViewModelData(adapter)
+
+        viewModel.fetchCharacters(PAGE_SIZE)
+    }
+
+    private fun initList(adapter: CharacterListAdapter) {
         adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
-                //TODO: NAVIGATE TO CHARACTER DETAIL SCREEN
+                findNavController().navigate(R.id.action_CharactersFragment_to_CharacterDetailFragment)
                 println(adapter.currentList[position].id)
             }
         })
 
-        //binding.rvHome.layoutManager = GridLayoutManager(context, 3)
-        mLayoutManager = LinearLayoutManager(requireContext())
-        binding.rvHome.layoutManager = mLayoutManager
+        val listLayoutManager = LinearLayoutManager(requireContext())
+        binding.rvHome.layoutManager = listLayoutManager
         binding.rvHome.adapter = adapter
+        binding.rvHome.addOnScrollListener(
+            CharactersListScrollListener(
+                listLayoutManager,
+                viewModel
+            )
+        )
+    }
 
-        viewModel.fetchCharacters(PAGE_SIZE)
-
+    private fun collectViewModelData(adapter: CharacterListAdapter) {
         lifecycleScope.launchWhenCreated {
             viewModel.characters.collectLatest {
                 adapter.submitList(it)
@@ -65,7 +78,7 @@ class CharactersFragment : Fragment() {
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.isInternetReachable.collectLatest {
+            viewModel.isNetworkReachable.collectLatest {
                 if (it) {
                     println("INTERNET REACHABLE")
                 } else {
@@ -74,9 +87,6 @@ class CharactersFragment : Fragment() {
                 }
             }
         }
-
-        val listener = CharactersListScrollListener(mLayoutManager, viewModel)
-        binding.rvHome.addOnScrollListener(listener)
     }
 
     override fun onDestroy() {
