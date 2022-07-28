@@ -9,11 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.marvelapp.R
-import com.squareup.picasso.Picasso
 import com.marvel.model.Character
 
-class CharacterListAdapter internal constructor(context: Context) :
+class CharacterListAdapter internal constructor(private val context: Context) :
     ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallback) {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
@@ -30,13 +32,12 @@ class CharacterListAdapter internal constructor(context: Context) :
 
         val imageUrl = item.thumbNail
 
-        Picasso.get().setIndicatorsEnabled(true)
-
-        Picasso.get()
+        Glide.with(context)
             .load(imageUrl)
-            .resize(400, 400)
+            .apply(RequestOptions().override(600, 400))
             .placeholder(R.drawable.ic_launcher_background)
             .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.ivCharacterThumbnail)
     }
 
@@ -55,12 +56,10 @@ class CharacterListAdapter internal constructor(context: Context) :
         }
     }
 
-    // allows clicks events to be caught
     fun setClickListener(itemClickListener: ItemClickListener?) {
         mClickListener = itemClickListener
     }
 
-    // parent activity will implement this method to respond to click events
     interface ItemClickListener {
         fun onItemClick(view: View?, position: Int)
     }
