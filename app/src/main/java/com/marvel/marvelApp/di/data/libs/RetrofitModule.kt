@@ -1,4 +1,4 @@
-package com.marvel.marvelApp.di.data
+package com.marvel.marvelApp.di.data.libs
 
 import com.marvel.remote.retrofit.factories.RetrofitFactory
 import com.marvel.remote.retrofit.services.CharactersService

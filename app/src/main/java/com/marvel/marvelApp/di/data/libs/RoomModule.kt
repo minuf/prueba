@@ -1,4 +1,4 @@
-package com.marvel.marvelApp.di.data
+package com.marvel.marvelApp.di.data.libs
 
 import android.app.Application
 import androidx.room.Room
