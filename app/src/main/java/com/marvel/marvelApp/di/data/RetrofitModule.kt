@@ -1,21 +1,21 @@
-package com.marvel.marvelApp.di
+package com.marvel.marvelApp.di.data
 
 import com.marvel.remote.retrofit.factories.RetrofitFactory
 import com.marvel.remote.retrofit.services.CharactersService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
+@InstallIn(FragmentComponent::class)
 class RetrofitModule {
 
     @Provides
-    @Singleton
     fun provideRetrofit() = RetrofitFactory().makeRetrofit()
 
     @Provides
-    @Singleton
     fun provideRetrofitCharacterService(retrofit: Retrofit): CharactersService =
         retrofit.create(CharactersService::class.java)
 }

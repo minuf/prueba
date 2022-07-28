@@ -9,14 +9,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.marvel.marvelApp.App
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
+import com.marvel.usecases.GetCharactersUseCase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 const val PAGE_SIZE = 25
 
+@AndroidEntryPoint
 class CharactersFragment : Fragment() {
+
+    @Inject
+    lateinit var getCharactersUseCase: GetCharactersUseCase
 
     private var _binding: FragmentCharactersBinding? = null
 
@@ -42,8 +48,12 @@ class CharactersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
-        (activity?.application as App).getComponent().inject(viewModel)
+        //viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
+
+        viewModel =
+            ViewModelProvider(this, CharactersViewModelFactory(getCharactersUseCase)).get(
+                CharactersViewModel::class.java
+            )
 
         val adapter = CharacterListAdapter(requireContext())
 

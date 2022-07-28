@@ -1,7 +1,9 @@
 package com.marvel.marvelApp.ui.characters
 
+import android.app.Application
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.marvel.model.Character
 import com.marvel.model.Result
@@ -11,12 +13,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class CharactersViewModel : ViewModel() {
 
-    @Inject
-    lateinit var getCharactersUseCase: GetCharactersUseCase
+class CharactersViewModel(private val getCharactersUseCase: GetCharactersUseCase) : ViewModel() {
 
     private var isLoading = false
 
@@ -51,5 +50,13 @@ class CharactersViewModel : ViewModel() {
         } else {
             println("VIEWMODEL: UNEXPECTED ERROR")
         }
+    }
+}
+
+class CharactersViewModelFactory(private val getCharactersUseCase: GetCharactersUseCase) :
+    ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return CharactersViewModel(getCharactersUseCase) as T
     }
 }

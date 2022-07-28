@@ -1,4 +1,4 @@
-package com.marvel.marvelApp.di
+package com.marvel.marvelApp.di.data
 
 import android.app.Application
 import androidx.room.Room
@@ -6,15 +6,12 @@ import com.marvel.local.room.CharacterDao
 import com.marvel.local.room.CharacterDb
 import dagger.Module
 import dagger.Provides
-
-import javax.inject.Singleton
-
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 
 @Module
+@InstallIn(FragmentComponent::class)
 class RoomModule {
-    // App will be injected here by Dagger
-    // Dagger knows that App instance will fit here based on the @Binds in the AppModule
-    @Singleton
     @Provides
     fun provideAppDatabase(app: Application): CharacterDb {
         return Room
@@ -22,7 +19,6 @@ class RoomModule {
             .build()
     }
 
-    @Singleton
     @Provides
     fun provideCharactersDao(db: CharacterDb): CharacterDao {
         return db.characterDao()
