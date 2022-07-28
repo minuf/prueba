@@ -1,8 +1,8 @@
 package com.example.data
 
-import com.example.CharactersRepositoryImpl
-import com.example.local.LocalCharactersDataSource
-import com.example.remote.RemoteCharactersDataSource
+import com.marvel.CharactersRepositoryImpl
+import com.marvel.local.LocalCharactersDataSource
+import com.marvel.remote.RemoteCharactersDataSource
 import com.marvel.model.Character
 import com.marvel.model.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
