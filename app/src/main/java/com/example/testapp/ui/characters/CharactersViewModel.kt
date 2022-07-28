@@ -1,11 +1,12 @@
 package com.example.testapp.ui.characters
 
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marvel.model.Character
 import com.marvel.model.Result
 import com.marvel.model.errors.ErrorEntity
-import com.marvel.usecases.GetCharacters
+import com.marvel.usecases.GetCharactersUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class CharactersViewModel : ViewModel() {
 
     @Inject
-    lateinit var getCharacters: GetCharacters
+    lateinit var getCharactersUseCase: GetCharactersUseCase
 
     private var isLoading = false
 
@@ -25,11 +26,13 @@ class CharactersViewModel : ViewModel() {
     val characters: StateFlow<List<Character>> = _characters
     val isNetworkReachable: StateFlow<Boolean> = _isNetworkReachable
 
+    var listState: Parcelable? = null
+
     fun fetchCharacters(total: Int, skip: Int = 0) {
         if (!isLoading) {
             isLoading = true
             viewModelScope.launch(Dispatchers.IO) {
-                getCharacters(total, skip).let { result ->
+                getCharactersUseCase(total, skip).let { result ->
                     if (result is Result.Success) {
                         _isNetworkReachable.value = true
                         _characters.value += result.data

@@ -30,6 +30,8 @@ class CharactersFragment : Fragment() {
 
     private lateinit var viewModel: CharactersViewModel
 
+    private lateinit var mLayoutManager: LinearLayoutManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,15 +61,20 @@ class CharactersFragment : Fragment() {
             }
         })
 
-        val listLayoutManager = LinearLayoutManager(requireContext())
-        binding.rvHome.layoutManager = listLayoutManager
+        mLayoutManager = LinearLayoutManager(requireContext())
+        binding.rvHome.layoutManager = mLayoutManager
         binding.rvHome.adapter = adapter
         binding.rvHome.addOnScrollListener(
             CharactersListScrollListener(
-                listLayoutManager,
+                mLayoutManager,
                 viewModel
             )
         )
+
+        if (viewModel.listState != null) {
+            mLayoutManager.onRestoreInstanceState(viewModel.listState)
+            viewModel.listState = null
+        }
     }
 
     private fun collectViewModelData(adapter: CharacterListAdapter) {
@@ -91,6 +98,7 @@ class CharactersFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModel.listState = mLayoutManager?.onSaveInstanceState()
         _binding = null
     }
 }

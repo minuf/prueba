@@ -1,14 +1,13 @@
 package com.example.testapp.di
 
-import android.app.Application
 import com.example.CharactersRepositoryImpl
 import com.example.local.LocalCharactersDataSource
 import com.example.local.room.CharacterDao
-import com.example.local.room.CharacterDb
 import com.example.remote.RemoteCharactersDataSource
-import com.marvel.usecases.GetCharacters
+import com.marvel.usecases.GetCharactersUseCase
 import com.marvel.repositories.CharactersRepository
 import com.example.remote.retrofit.services.CharactersService
+import com.marvel.usecases.GetCharactersUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -35,6 +34,6 @@ class UseCasesModule {
         CharactersRepositoryImpl(remoteCharactersDataSource, localCharactersDataSource)
 
     @Provides
-    fun provideGetAllCharacters(charactersRepository: CharactersRepository) =
-        GetCharacters(charactersRepository)
+    fun provideGetAllCharacters(charactersRepository: CharactersRepository) : GetCharactersUseCase =
+        GetCharactersUseCaseImpl(charactersRepository)
 }
