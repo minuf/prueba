@@ -1,6 +1,5 @@
-package com.marvel.marvelApp.ui.characters
+package com.marvel.marvelApp.ui.home
 
-import android.app.Application
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

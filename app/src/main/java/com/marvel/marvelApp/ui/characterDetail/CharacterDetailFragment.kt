@@ -1,4 +1,4 @@
-package com.marvel.marvelApp.ui
+package com.marvel.marvelApp.ui.characterDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,13 +1,16 @@
-package com.marvel.marvelApp.ui.characters
+package com.marvel.marvelApp.ui.charactersList
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.marvel.marvelApp.ui.home.CharactersViewModel
+import com.marvel.marvelApp.ui.home.PAGE_SIZE
 
 class CharactersListScrollListener(
     private val mLayoutManager: LinearLayoutManager,
     private val viewModel: CharactersViewModel
 ) : RecyclerView.OnScrollListener() {
-    var lastItemCount = 0
+
+    private var lastItemCount = 0
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         if (isScrollingDown(dy)) {
@@ -27,7 +30,11 @@ class CharactersListScrollListener(
     }
 
     private fun shouldCall(): Boolean {
-        return isEnd() && lastItemCount != mLayoutManager.itemCount
+        return isEnd() && !isRepeatedCall()
+    }
+
+    private fun isRepeatedCall() : Boolean {
+        return lastItemCount == mLayoutManager.itemCount
     }
 
     private fun isEnd(): Boolean {

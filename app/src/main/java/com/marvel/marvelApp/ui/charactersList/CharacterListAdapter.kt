@@ -1,4 +1,4 @@
-package com.marvel.marvelApp.ui.characters
+package com.marvel.marvelApp.ui.charactersList
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.marvel.marvelApp.ui.characters
+package com.marvel.marvelApp.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
+import com.marvel.marvelApp.ui.charactersList.CharacterListAdapter
+import com.marvel.marvelApp.ui.charactersList.CharactersListScrollListener
 import com.marvel.usecases.GetCharactersUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
