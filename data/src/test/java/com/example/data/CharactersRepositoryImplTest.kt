@@ -5,6 +5,7 @@ import com.marvel.local.LocalCharactersDataSource
 import com.marvel.remote.RemoteCharactersDataSource
 import com.marvel.model.Character
 import com.marvel.model.Result
+import com.marvel.repositories.CharactersRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -32,7 +33,7 @@ class CharactersRepositoryImplTest {
     private var initialSize = 0
     private var initialSkip = 0
 
-    private lateinit var repository: CharactersRepositoryImpl
+    private lateinit var repository: CharactersRepository
 
     @Before
     fun makeSut() {

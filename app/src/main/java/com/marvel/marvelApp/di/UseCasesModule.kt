@@ -2,8 +2,10 @@ package com.marvel.marvelApp.di
 
 import com.marvel.CharactersRepositoryImpl
 import com.marvel.local.LocalCharactersDataSource
+import com.marvel.local.LocalCharactersDataSourceImpl
 import com.marvel.local.room.CharacterDao
 import com.marvel.remote.RemoteCharactersDataSource
+import com.marvel.remote.RemoteCharactersDataSourceImpl
 import com.marvel.usecases.GetCharactersUseCase
 import com.marvel.repositories.CharactersRepository
 import com.marvel.remote.retrofit.services.CharactersService
@@ -18,12 +20,12 @@ class UseCasesModule {
     @Provides
     @Singleton
     fun provideRemoteDataSource(charactersService: CharactersService): RemoteCharactersDataSource =
-        RemoteCharactersDataSource(charactersService)
+        RemoteCharactersDataSourceImpl(charactersService)
 
     @Provides
     @Singleton
     fun provideLocalDataSource(charactersDao: CharacterDao): LocalCharactersDataSource =
-        LocalCharactersDataSource(charactersDao)
+        LocalCharactersDataSourceImpl(charactersDao)
 
     @Provides
     @Singleton
