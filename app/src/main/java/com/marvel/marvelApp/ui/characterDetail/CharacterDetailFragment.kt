@@ -9,9 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharacterDetailBinding
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class CharacterDetailFragment : Fragment() {
 
     private var _binding: FragmentCharacterDetailBinding? = null
@@ -36,6 +33,9 @@ class CharacterDetailFragment : Fragment() {
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_CharacterDetailFragment_to_CharactersFragment)
         }
+
+        val id = arguments?.getInt("characterId")
+        println("CHARACTER ID $id")
     }
 
     override fun onDestroyView() {

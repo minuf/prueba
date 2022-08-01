@@ -68,8 +68,12 @@ class CharactersFragment : Fragment() {
     private fun initList(adapter: CharacterListAdapter) {
         adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
-                findNavController().navigate(R.id.action_CharactersFragment_to_CharacterDetailFragment)
-                println(adapter.currentList[position].id)
+                val characterId = adapter.currentList[position].id
+                val action =
+                    CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailFragment(
+                        characterId
+                    )
+                findNavController().navigate(action)
             }
         })
 
