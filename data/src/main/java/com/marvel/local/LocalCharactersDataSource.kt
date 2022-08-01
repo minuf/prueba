@@ -17,15 +17,12 @@ class LocalCharactersDataSourceImpl(
     val characters = arrayListOf<Character>()
 
     override suspend fun getCharacters(size: Int, skip: Int): List<Character> {
-        //val result = room.characterDao().getCharacters(size, skip)
-        val result = characterDao.getCharacters(size, skip)
+        return characterDao.getCharacters(size, skip)
             .map { it.toDomainModel() }
-        println(result)
-        return result
     }
 
     override suspend fun getCharacterById(id: Int): Character {
-        return Character(5, "", "", "")
+        return characterDao.getCharacterById(id).toDomainModel()
     }
 
     override suspend fun saveCharacters(characters: List<Character>) {
