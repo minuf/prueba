@@ -28,13 +28,7 @@ class CharactersFragment : Fragment() {
 
     private var _binding: FragmentCharactersBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
-    companion object {
-        fun newInstance() = CharactersFragment()
-    }
 
     private lateinit var viewModel: CharactersViewModel
 
