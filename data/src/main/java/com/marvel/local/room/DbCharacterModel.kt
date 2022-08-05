@@ -3,7 +3,7 @@ package com.marvel.local.room
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "Character")
 data class DbCharacterModel(
     @PrimaryKey(autoGenerate = false)
     val id: Int,

@@ -41,6 +41,7 @@ class CharactersListScrollListener(
         val visibleItemCount = mLayoutManager.childCount
         val totalItemCount = mLayoutManager.itemCount
         val pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition()
+        //val pastVisibleItems = mLayoutManager.findLastVisibleItemPosition()
 
         return visibleItemCount + pastVisibleItems >= totalItemCount - 10
     }
