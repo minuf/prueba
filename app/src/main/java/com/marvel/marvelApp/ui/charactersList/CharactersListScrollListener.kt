@@ -16,10 +16,7 @@ class CharactersListScrollListener(
         if (isScrollingDown(dy)) {
             if (shouldCall()) {
                 doCharactersCall()
-                println("SHOULD FETCH")
-                return
             }
-            println("SHOULD FETCH NOT")
         }
     }
 

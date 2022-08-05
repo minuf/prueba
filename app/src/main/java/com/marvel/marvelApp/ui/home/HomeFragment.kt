@@ -55,8 +55,6 @@ class CharactersFragment : Fragment() {
 
         initList(adapter)
         collectViewModelData(adapter)
-
-        viewModel.fetchCharacters(PAGE_SIZE)
     }
 
     private fun initList(adapter: CharacterListAdapter) {
@@ -80,11 +78,6 @@ class CharactersFragment : Fragment() {
                 viewModel
             )
         )
-
-        if (viewModel.listState != null) {
-            mLayoutManager.onRestoreInstanceState(viewModel.listState)
-            viewModel.listState = null
-        }
     }
 
     private fun collectViewModelData(adapter: CharacterListAdapter) {
@@ -108,7 +101,6 @@ class CharactersFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.listState = mLayoutManager?.onSaveInstanceState()
         _binding = null
     }
 }

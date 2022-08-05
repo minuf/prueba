@@ -23,7 +23,9 @@ class CharactersViewModel(private val getCharactersUseCase: GetCharactersUseCase
     val characters: StateFlow<List<Character>> = _characters
     val isNetworkReachable: StateFlow<Boolean> = _isNetworkReachable
 
-    var listState: Parcelable? = null
+    init {
+        fetchCharacters(25)
+    }
 
     fun fetchCharacters(total: Int, skip: Int = 0) {
         if (!isLoading) {

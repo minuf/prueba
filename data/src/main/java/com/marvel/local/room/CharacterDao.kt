@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface CharacterDao {
 
-    @Query("SELECT * FROM Character LIMIT :size OFFSET :skip")
+    @Query("SELECT * FROM Character ORDER BY name LIMIT :size OFFSET :skip")
     suspend fun getCharacters(size: Int, skip: Int): List<DbCharacterModel>
 
     @Query("SELECT * FROM Character WHERE id = :id")
