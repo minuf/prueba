@@ -12,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharacterDetailBinding
+import com.marvel.domain.model.Character
 import com.marvel.usecases.GetCharacterByIdUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -43,9 +44,17 @@ class CharacterDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = arguments?.getInt("characterId")
+        val character = arguments?.get("character") as Character
+        binding.tvCharacterDetailName.text = character?.name
+        Glide.with(this@CharacterDetailFragment)
+            .load(character?.thumbNail)
+            .apply(RequestOptions().override(600, 400))
+            .placeholder(R.drawable.ic_launcher_background)
+            .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(binding.ivCharacterDetailThumbnail)
 
-        viewModel =
+        /*viewModel =
             ViewModelProvider(this, CharacterDetailViewModelFactory(getCharacterByIdUseCase)).get(
                 CharacterDetailViewModel::class.java
             )
@@ -63,7 +72,7 @@ class CharacterDetailFragment : Fragment() {
             }
         }
 
-        viewModel.fetchCharacter(id!!)
+        viewModel.fetchCharacter(character.id)*/
     }
 
     override fun onDestroyView() {

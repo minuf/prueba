@@ -3,7 +3,7 @@ package com.marvel.marvelApp.ui.characterDetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.marvel.model.Character
+import com.marvel.domain.model.Character
 import com.marvel.model.Result
 import com.marvel.usecases.GetCharacterByIdUseCase
 import kotlinx.coroutines.Dispatchers

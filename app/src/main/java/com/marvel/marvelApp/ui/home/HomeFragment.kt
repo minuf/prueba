@@ -60,10 +60,10 @@ class CharactersFragment : Fragment() {
     private fun initList(adapter: CharacterListAdapter) {
         adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
             override fun onItemClick(view: View?, position: Int) {
-                val characterId = adapter.currentList[position].id
+                val character = adapter.currentList[position]
                 val action =
                     CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailFragment(
-                        characterId
+                        character
                     )
                 findNavController().navigate(action)
             }

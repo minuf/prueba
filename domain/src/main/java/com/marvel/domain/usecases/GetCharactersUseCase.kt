@@ -1,6 +1,6 @@
 package com.marvel.usecases
 
-import com.marvel.model.Character
+import com.marvel.domain.model.Character
 import com.marvel.model.Result
 import com.marvel.repositories.CharactersRepository
 

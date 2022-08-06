@@ -3,7 +3,7 @@ package com.example.data
 import com.marvel.CharactersRepositoryImpl
 import com.marvel.local.LocalCharactersDataSource
 import com.marvel.remote.RemoteCharactersDataSource
-import com.marvel.model.Character
+import com.marvel.domain.model.Character
 import com.marvel.model.Result
 import com.marvel.repositories.CharactersRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -2,7 +2,6 @@ package com.marvel.remote.retrofit.services
 
 import com.marvel.remote.retrofit.data.MarvelResponse
 import com.marvel.remote.retrofit.data.RemoteCharacterModel
-import com.marvel.model.Character
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

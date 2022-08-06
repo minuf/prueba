@@ -2,7 +2,7 @@ package com.marvel.util
 
 import com.marvel.local.room.DbCharacterModel
 import com.marvel.remote.retrofit.data.RemoteCharacterModel
-import com.marvel.model.Character
+import com.marvel.domain.model.Character
 
 //TODO: REVIEW NEEDED CASTS
 fun DbCharacterModel.toDomainModel() = Character(

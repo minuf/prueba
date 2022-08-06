@@ -2,7 +2,7 @@ package com.marvel.remote
 
 import com.marvel.remote.retrofit.services.CharactersService
 import com.marvel.util.toDomainModel
-import com.marvel.model.Character
+import com.marvel.domain.model.Character
 
 interface RemoteCharactersDataSource {
     suspend fun getCharacters(size: Int, skip: Int): List<Character>

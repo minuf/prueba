@@ -7,6 +7,6 @@ import androidx.room.RoomDatabase
     entities = [DbCharacterModel::class],
     version = 1
 )
-abstract class CharacterDb : RoomDatabase() {
+abstract class MarvelDb : RoomDatabase() {
     abstract fun characterDao(): CharacterDao
 }

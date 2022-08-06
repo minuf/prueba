@@ -1,7 +1,7 @@
 package com.marvel.local
 
 import com.marvel.local.room.CharacterDao
-import com.marvel.model.Character
+import com.marvel.domain.model.Character
 import com.marvel.util.toDbModel
 import com.marvel.util.toDomainModel
 

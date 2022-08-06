@@ -1,6 +1,6 @@
 package com.marvel.domain
 
-import com.marvel.model.Character
+import com.marvel.domain.model.Character
 import com.marvel.repositories.CharactersRepository
 import com.marvel.usecases.GetCharactersUseCase
 import com.marvel.model.Result

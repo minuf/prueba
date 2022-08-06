@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.marvelapp.R
-import com.marvel.model.Character
+import com.marvel.domain.model.Character
 
 class CharacterListAdapter internal constructor(private val context: Context) :
     ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallback) {
