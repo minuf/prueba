@@ -10,9 +10,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(SingletonComponent::class)
 class DataSourceModule {
     @Provides
     fun provideRemoteDataSource(charactersService: CharactersService): RemoteCharactersDataSource =

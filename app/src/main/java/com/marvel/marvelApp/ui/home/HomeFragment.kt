@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -23,14 +24,11 @@ const val PAGE_SIZE = 25
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
 
-    @Inject
-    lateinit var getCharactersUseCase: GetCharactersUseCase
-
     private var _binding: FragmentCharactersBinding? = null
 
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: CharactersViewModel
+    private val viewModel: CharactersViewModel by viewModels()
 
     private lateinit var mLayoutManager: LinearLayoutManager
 
@@ -44,12 +42,6 @@ class CharactersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(CharactersViewModel::class.java)
-
-        viewModel =
-            ViewModelProvider(this, CharactersViewModelFactory(getCharactersUseCase)).get(
-                CharactersViewModel::class.java
-            )
 
         val adapter = CharacterListAdapter(requireContext())
 

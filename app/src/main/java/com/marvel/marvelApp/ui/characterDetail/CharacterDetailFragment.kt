@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -22,14 +23,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment() {
 
-    @Inject
-    lateinit var getCharacterByIdUseCase: GetCharacterByIdUseCase
-
     private var _binding: FragmentCharacterDetailBinding? = null
 
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: CharacterDetailViewModel
+    private val viewModel: CharacterDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,36 +41,16 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val character = arguments?.get("character") as Character
-        binding.tvCharacterDetailName.text = character?.name
+
+        binding.tvCharacterDetailName.text = character.name
         Glide.with(this@CharacterDetailFragment)
-            .load(character?.thumbNail)
+            .load(character.thumbNail)
             .apply(RequestOptions().override(600, 400))
             .placeholder(R.drawable.ic_launcher_background)
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.ivCharacterDetailThumbnail)
-
-        /*viewModel =
-            ViewModelProvider(this, CharacterDetailViewModelFactory(getCharacterByIdUseCase)).get(
-                CharacterDetailViewModel::class.java
-            )
-
-        lifecycleScope.launch {
-            viewModel.character.collectLatest {
-                binding.tvCharacterDetailName.text = it?.name
-                Glide.with(this@CharacterDetailFragment)
-                    .load(it?.thumbNail)
-                    .apply(RequestOptions().override(600, 400))
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.ivCharacterDetailThumbnail)
-            }
-        }
-
-        viewModel.fetchCharacter(character.id)*/
     }
 
     override fun onDestroyView() {

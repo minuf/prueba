@@ -6,12 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.marvel.domain.model.Character
 import com.marvel.model.Result
 import com.marvel.usecases.GetCharacterByIdUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharacterDetailViewModel(private val getCharacterByIdUseCase: GetCharacterByIdUseCase) : ViewModel() {
+@HiltViewModel
+class CharacterDetailViewModel @Inject constructor(private val getCharacterByIdUseCase: GetCharacterByIdUseCase) : ViewModel() {
 
     private val _character = MutableStateFlow<Character?>(null)
 
@@ -27,13 +30,5 @@ class CharacterDetailViewModel(private val getCharacterByIdUseCase: GetCharacter
                 }
             }
         }
-    }
-}
-
-class CharacterDetailViewModelFactory(private val getCharacterByIdUseCase: GetCharacterByIdUseCase) :
-    ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return CharacterDetailViewModel(getCharacterByIdUseCase) as T
     }
 }

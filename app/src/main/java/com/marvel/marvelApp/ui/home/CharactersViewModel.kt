@@ -7,12 +7,16 @@ import com.marvel.domain.model.Character
 import com.marvel.model.Result
 import com.marvel.model.errors.ErrorEntity
 import com.marvel.usecases.GetCharactersUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharactersViewModel(private val getCharactersUseCase: GetCharactersUseCase) : ViewModel() {
+@HiltViewModel
+class CharactersViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) :
+    ViewModel() {
 
     private var isLoading = false
 
@@ -49,13 +53,5 @@ class CharactersViewModel(private val getCharactersUseCase: GetCharactersUseCase
         } else {
             println("VIEWMODEL: UNEXPECTED ERROR")
         }
-    }
-}
-
-class CharactersViewModelFactory(private val getCharactersUseCase: GetCharactersUseCase) :
-    ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return CharactersViewModel(getCharactersUseCase) as T
     }
 }
