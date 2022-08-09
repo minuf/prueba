@@ -1,7 +1,6 @@
 package com.marvel.marvelApp.ui.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.marvel.domain.model.Character
 import com.marvel.model.Result
@@ -14,8 +13,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+const val PAGE_SIZE = 25
+
 @HiltViewModel
-class CharactersViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) :
+class CharactersViewModel @Inject constructor(
+    private val getCharactersUseCase: GetCharactersUseCase
+) :
     ViewModel() {
 
     private var isLoading = false
@@ -27,7 +30,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
     val isNetworkReachable: StateFlow<Boolean> = _isNetworkReachable
 
     init {
-        fetchCharacters(25)
+        fetchCharacters(PAGE_SIZE)
     }
 
     fun fetchCharacters(total: Int, skip: Int = 0) {
@@ -36,7 +39,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
             viewModelScope.launch(Dispatchers.IO) {
                 getCharactersUseCase(total, skip).let { result ->
                     if (result is Result.Success) {
-                        _isNetworkReachable.value = true
+                        //_isNetworkReachable.value = true
                         _characters.value += result.data
                     } else if (result is Result.Error) {
                         handleError(result.error)
@@ -50,6 +53,7 @@ class CharactersViewModel @Inject constructor(private val getCharactersUseCase: 
     private fun handleError(error: ErrorEntity) {
         if (error is ErrorEntity.Network) {
             _isNetworkReachable.value = false
+            //registerBroadcast
         } else {
             println("VIEWMODEL: UNEXPECTED ERROR")
         }

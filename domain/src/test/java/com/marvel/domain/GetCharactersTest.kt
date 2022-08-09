@@ -4,6 +4,7 @@ import com.marvel.domain.model.Character
 import com.marvel.repositories.CharactersRepository
 import com.marvel.usecases.GetCharactersUseCase
 import com.marvel.model.Result
+import com.marvel.usecases.GetCharactersUseCaseImpl
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
@@ -19,7 +20,7 @@ class GetCharactersTest {
 
     private val initialSize = 50
     private val initialSkip = 0
-    private val getCharacters = GetCharactersUseCase(mockedCharactersRepo)
+    private val getCharacters = GetCharactersUseCaseImpl(mockedCharactersRepo)
 
     @Test
     fun `should return Result class with list of Characters`() = runTest {

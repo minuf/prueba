@@ -21,6 +21,6 @@ class RemoteCharactersDataSourceImpl(private val charactersService: CharactersSe
     override suspend fun getCharacterById(id: Int): Character {
         val response =
             charactersService.fetCharacterById(id)
-        return response.body()!!.data.results[0].toDomainModel()
+        return response.body()?.data?.results?.get(0)?.toDomainModel() ?: throw Exception("CHARACTER NOT FOUND") //TODO: CREATE ERROR FOR THIS CASE
     }
 }

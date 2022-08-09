@@ -1,7 +1,6 @@
 package com.marvel.marvelApp.ui.characterDetail
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.marvel.domain.model.Character
 import com.marvel.model.Result
@@ -14,7 +13,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterDetailViewModel @Inject constructor(private val getCharacterByIdUseCase: GetCharacterByIdUseCase) : ViewModel() {
+class CharacterDetailViewModel @Inject constructor(
+    private val getCharacterByIdUseCase: GetCharacterByIdUseCase
+) : ViewModel() {
 
     private val _character = MutableStateFlow<Character?>(null)
 

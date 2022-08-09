@@ -19,8 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
-const val PAGE_SIZE = 25
-
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
 
@@ -84,7 +82,6 @@ class CharactersFragment : Fragment() {
                 if (it) {
                     println("INTERNET REACHABLE")
                 } else {
-
                     println("INTERNET REACHABLE NOT")
                 }
             }

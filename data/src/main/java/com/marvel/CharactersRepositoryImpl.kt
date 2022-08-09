@@ -30,7 +30,7 @@ class CharactersRepositoryImpl(
 
     override suspend fun getCharacterById(id: Int): Result<Character> {
         return try {
-            Result.Success(remoteDataSource.getCharacterById(id))
+            Result.Success(localDataSource.getCharacterById(id))
         } catch (t: Throwable) {
             Result.Error(errorHandler.getError(t))
         }
