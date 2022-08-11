@@ -1,17 +1,15 @@
 package com.marvel
 
-import com.marvel.local.LocalCharactersDataSource
-import com.marvel.remote.RemoteCharactersDataSource
 import com.marvel.domain.model.Character
 import com.marvel.domain.model.Result
 import com.marvel.domain.model.errors.ErrorHandler
 import com.marvel.domain.repositories.CharactersRepository
-import kotlinx.coroutines.*
+import com.marvel.local.LocalCharactersDataSource
+import com.marvel.remote.RemoteCharactersDataSource
 
 class CharactersRepositoryImpl(
     private val remoteDataSource: RemoteCharactersDataSource,
     private val localDataSource: LocalCharactersDataSource,
-    private val scope: CoroutineScope = GlobalScope, //TODO: CHANGE THIS SCOPE
     private val errorHandler: ErrorHandler = GeneralErrorHandlerImpl()
 ) : CharactersRepository {
 
@@ -20,7 +18,7 @@ class CharactersRepositoryImpl(
             var characters = localDataSource.getCharacters(size, skip)
             if (characters.isEmpty()) {
                 characters = remoteDataSource.getCharacters(size, skip)
-                saveCharactersAsync(characters)
+                localDataSource.saveCharacters(characters)
             }
             Result.Success(characters)
 
@@ -34,12 +32,6 @@ class CharactersRepositoryImpl(
             Result.Success(localDataSource.getCharacterById(id))
         } catch (t: Throwable) {
             Result.Error(errorHandler.getError(t))
-        }
-    }
-
-    private fun saveCharactersAsync(characters: List<Character>) {
-        scope.launch(Dispatchers.IO) {
-            localDataSource.saveCharacters(characters)
         }
     }
 }

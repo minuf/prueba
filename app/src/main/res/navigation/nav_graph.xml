@@ -18,12 +18,9 @@
     <fragment
         android:id="@+id/CharacterDetailFragment"
         android:name="com.marvel.marvelApp.ui.characterDetail.CharacterDetailFragment"
-        android:label="@string/character_detail_label"
+        android:label="@string/character_detail_fragment_label"
         tools:layout="@layout/fragment_character_detail">
 
-        <action
-            android:id="@+id/action_CharacterDetailFragment_to_CharactersFragment"
-            app:destination="@id/CharactersFragment" />
         <argument
             android:name="character"
             app:argType="com.marvel.domain.model.Character"/>

@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.marvelapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name="com.marvel.marvelApp.MarvelApp"
         android:allowBackup="true"
@@ -19,7 +17,6 @@
         <activity
             android:name="com.marvel.marvelApp.ui.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.TestApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
