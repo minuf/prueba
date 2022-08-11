@@ -1,6 +1,6 @@
-package com.marvel.model
+package com.marvel.domain.model
 
-import com.marvel.model.errors.ErrorEntity
+import com.marvel.domain.model.errors.ErrorEntity
 
 sealed class Result<T> {
 

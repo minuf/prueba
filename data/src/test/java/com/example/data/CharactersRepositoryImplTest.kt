@@ -4,8 +4,8 @@ import com.marvel.CharactersRepositoryImpl
 import com.marvel.local.LocalCharactersDataSource
 import com.marvel.remote.RemoteCharactersDataSource
 import com.marvel.domain.model.Character
-import com.marvel.model.Result
-import com.marvel.repositories.CharactersRepository
+import com.marvel.domain.model.Result
+import com.marvel.domain.repositories.CharactersRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After

@@ -1,8 +1,8 @@
-package com.marvel.usecases
+package com.marvel.domain.usecases
 
 import com.marvel.domain.model.Character
-import com.marvel.model.Result
-import com.marvel.repositories.CharactersRepository
+import com.marvel.domain.model.Result
+import com.marvel.domain.repositories.CharactersRepository
 
 interface GetCharactersUseCase {
     suspend operator fun invoke(size: Int, skip: Int): Result<List<Character>>

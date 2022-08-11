@@ -3,14 +3,15 @@ package com.marvel
 import com.marvel.local.LocalCharactersDataSource
 import com.marvel.remote.RemoteCharactersDataSource
 import com.marvel.domain.model.Character
-import com.marvel.model.Result
-import com.marvel.model.errors.ErrorHandler
-import com.marvel.repositories.CharactersRepository
+import com.marvel.domain.model.Result
+import com.marvel.domain.model.errors.ErrorHandler
+import com.marvel.domain.repositories.CharactersRepository
 import kotlinx.coroutines.*
 
 class CharactersRepositoryImpl(
     private val remoteDataSource: RemoteCharactersDataSource,
     private val localDataSource: LocalCharactersDataSource,
+    private val scope: CoroutineScope = GlobalScope, //TODO: CHANGE THIS SCOPE
     private val errorHandler: ErrorHandler = GeneralErrorHandlerImpl()
 ) : CharactersRepository {
 
@@ -37,8 +38,7 @@ class CharactersRepositoryImpl(
     }
 
     private fun saveCharactersAsync(characters: List<Character>) {
-        //TODO: USE OTHER SCOPE
-        GlobalScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             localDataSource.saveCharacters(characters)
         }
     }

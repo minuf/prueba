@@ -1,4 +1,4 @@
-package com.marvel.model.errors
+package com.marvel.domain.model.errors
 
 sealed class ErrorEntity {
 

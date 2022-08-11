@@ -3,8 +3,8 @@ package com.marvel.marvelApp.ui.characterDetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marvel.domain.model.Character
-import com.marvel.model.Result
-import com.marvel.usecases.GetCharacterByIdUseCase
+import com.marvel.domain.model.Result
+import com.marvel.domain.usecases.GetCharacterByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

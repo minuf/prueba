@@ -1,7 +1,7 @@
 package com.marvel
 
-import com.marvel.model.errors.ErrorEntity
-import com.marvel.model.errors.ErrorHandler
+import com.marvel.domain.model.errors.ErrorEntity
+import com.marvel.domain.model.errors.ErrorHandler
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.HttpURLConnection

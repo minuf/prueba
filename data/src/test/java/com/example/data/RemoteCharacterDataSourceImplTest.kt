@@ -75,7 +75,7 @@ class RemoteCharacterDataSourceImplTest {
     }
 
     @Test
-    fun `Should return single Character when call getCharacters(id) with id param`() = runTest {
+    fun `Should return single Character when call characterService getCharacters(id) with id param`() = runTest {
         doReturn(Response.success(fakeRemoteResult)).`when`(charactersService).fetCharacterById(fakeId)
 
         val expectedResult = fakeRemoteResult.data.results[0].toDomainModel()

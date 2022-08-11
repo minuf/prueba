@@ -1,7 +1,7 @@
-package com.marvel.repositories
+package com.marvel.domain.repositories
 
 import com.marvel.domain.model.Character
-import com.marvel.model.Result
+import com.marvel.domain.model.Result
 
 interface CharactersRepository {
     suspend fun getCharacters(size: Int, skip: Int) : Result<List<Character>>

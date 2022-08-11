@@ -1,14 +1,13 @@
 package com.marvel.marvelApp.di.usecases
 
-import com.marvel.repositories.CharactersRepository
-import com.marvel.usecases.GetCharacterByIdUseCase
-import com.marvel.usecases.GetCharacterByIdUseCaseImpl
-import com.marvel.usecases.GetCharactersUseCase
-import com.marvel.usecases.GetCharactersUseCaseImpl
+import com.marvel.domain.repositories.CharactersRepository
+import com.marvel.domain.usecases.GetCharacterByIdUseCase
+import com.marvel.domain.usecases.GetCharacterByIdUseCaseImpl
+import com.marvel.domain.usecases.GetCharactersUseCase
+import com.marvel.domain.usecases.GetCharactersUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.components.ViewModelComponent
 
 @Module

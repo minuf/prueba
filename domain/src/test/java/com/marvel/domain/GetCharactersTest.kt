@@ -1,10 +1,9 @@
 package com.marvel.domain
 
 import com.marvel.domain.model.Character
-import com.marvel.repositories.CharactersRepository
-import com.marvel.usecases.GetCharactersUseCase
-import com.marvel.model.Result
-import com.marvel.usecases.GetCharactersUseCaseImpl
+import com.marvel.domain.repositories.CharactersRepository
+import com.marvel.domain.model.Result
+import com.marvel.domain.usecases.GetCharactersUseCaseImpl
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test

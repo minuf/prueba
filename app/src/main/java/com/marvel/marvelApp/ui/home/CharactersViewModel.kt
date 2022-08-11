@@ -3,9 +3,9 @@ package com.marvel.marvelApp.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marvel.domain.model.Character
-import com.marvel.model.Result
-import com.marvel.model.errors.ErrorEntity
-import com.marvel.usecases.GetCharactersUseCase
+import com.marvel.domain.model.Result
+import com.marvel.domain.model.errors.ErrorEntity
+import com.marvel.domain.usecases.GetCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
