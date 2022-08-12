@@ -23,7 +23,7 @@ class CharactersViewModel @Inject constructor(
 
     private var isLoading = false
 
-    private val _characters = MutableStateFlow<List<Character>>(listOf())
+    private val _characters = MutableStateFlow<List<Character>>(emptyList())
     private val _isNetworkReachable = MutableStateFlow(true)
 
     val characters: StateFlow<List<Character>> = _characters
@@ -39,7 +39,6 @@ class CharactersViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 getCharactersUseCase(total, skip).let { result ->
                     if (result is Result.Success) {
-                        //_isNetworkReachable.value = true
                         _characters.value += result.data
                     } else if (result is Result.Error) {
                         handleError(result.error)
@@ -53,7 +52,7 @@ class CharactersViewModel @Inject constructor(
     private fun handleError(error: ErrorEntity) {
         if (error is ErrorEntity.Network) {
             _isNetworkReachable.value = false
-            //registerBroadcast
+            //TODO: registerBroadcast for internet changes
         } else {
             println("VIEWMODEL: UNEXPECTED ERROR")
         }

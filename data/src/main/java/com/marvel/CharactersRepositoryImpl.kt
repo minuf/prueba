@@ -10,7 +10,7 @@ import com.marvel.remote.RemoteCharactersDataSource
 class CharactersRepositoryImpl(
     private val remoteDataSource: RemoteCharactersDataSource,
     private val localDataSource: LocalCharactersDataSource,
-    private val errorHandler: ErrorHandler = GeneralErrorHandlerImpl()
+    private val errorHandler: ErrorHandler
 ) : CharactersRepository {
 
     override suspend fun getCharacters(size: Int, skip: Int): Result<List<Character>> {

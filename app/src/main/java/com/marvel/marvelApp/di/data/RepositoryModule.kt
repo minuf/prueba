@@ -1,6 +1,7 @@
 package com.marvel.marvelApp.di.data
 
 import com.marvel.CharactersRepositoryImpl
+import com.marvel.domain.model.errors.ErrorHandler
 import com.marvel.local.LocalCharactersDataSource
 import com.marvel.remote.RemoteCharactersDataSource
 import com.marvel.domain.repositories.CharactersRepository
@@ -16,7 +17,12 @@ class RepositoryModule {
     @Provides
     fun provideCharactersRepository(
         remoteCharactersDataSource: RemoteCharactersDataSource,
-        localCharactersDataSource: LocalCharactersDataSource
+        localCharactersDataSource: LocalCharactersDataSource,
+        errorHandler: ErrorHandler
     ): CharactersRepository =
-        CharactersRepositoryImpl(remoteCharactersDataSource, localCharactersDataSource)
+        CharactersRepositoryImpl(
+            remoteCharactersDataSource,
+            localCharactersDataSource,
+            errorHandler
+        )
 }
