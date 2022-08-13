@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -12,14 +11,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharacterDetailBinding
 import com.marvel.domain.model.Character
+import com.marvel.marvelApp.ui.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterDetailFragment : Fragment() {
-
-    private var _binding: FragmentCharacterDetailBinding? = null
-
-    private val binding get() = _binding!!
+class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding>() {
 
     private val viewModel: CharacterDetailViewModel by viewModels()
 
@@ -45,10 +41,5 @@ class CharacterDetailFragment : Fragment() {
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.ivCharacterDetailThumbnail)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
