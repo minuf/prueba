@@ -1,4 +1,4 @@
-package com.marvel.marvelApp.ui.charactersList
+package com.marvel.marvelApp.ui.home.charactersList
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

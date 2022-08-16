@@ -10,8 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.marvel.marvelApp.ui.BaseFragment
-import com.marvel.marvelApp.ui.charactersList.CharacterListAdapter
-import com.marvel.marvelApp.ui.charactersList.CharactersListScrollListener
+import com.marvel.marvelApp.ui.home.charactersList.CharacterListAdapter
+import com.marvel.marvelApp.ui.home.charactersList.CharactersListScrollListener
+import com.marvel.marvelApp.ui.home.charactersList.ItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -40,13 +41,14 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
     }
 
     private fun initList(adapter: CharacterListAdapter) {
-        adapter.setClickListener(object : CharacterListAdapter.ItemClickListener {
-            override fun onItemClick(view: View?, position: Int) {
+        adapter.setClickListener(object : ItemClickListener {
+            override fun onItemClick(position: Int) {
                 val character = adapter.currentList[position]
                 val action =
-                    CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailFragment(
-                        character
-                    )
+                    CharactersFragmentDirections
+                        .actionCharactersFragmentToCharacterDetailFragment(
+                            character
+                        )
                 findNavController().navigate(action)
             }
         })
