@@ -9,46 +9,36 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.example.marvelapp.R
 import com.marvel.domain.model.Character
+import com.marvel.marvelApp.extensions.loadUrl
 
-class CharacterListAdapter internal constructor(private val context: Context) :
-    ListAdapter<Character, CharacterListAdapter.ViewHolder>(DiffUtilCallback) {
+class CharacterListAdapter internal constructor(context: Context) :
+    ListAdapter<Character, CharacterListAdapter.CharacterViewHolder>(DiffUtilCallback) {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view: View = mInflater.inflate(R.layout.item_character, parent, false)
-        return ViewHolder(view)
+        return CharacterViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val item = getItem(position)
         holder.tvCharacterName.text = item.name
-
-        val imageUrl = item.thumbNail
-
-        Glide.with(context)
-            .load(imageUrl)
-            .apply(RequestOptions().override(600, 400))
-            .placeholder(R.drawable.ic_launcher_background)
-            .centerCrop()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.ivCharacterThumbnail)
+        holder.ivCharacterThumbnail.loadUrl(item.thumbNail)
     }
 
-    inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
+    inner class CharacterViewHolder internal constructor(itemView: View) :
+        RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
         var tvCharacterName: TextView = itemView.findViewById(R.id.tv_character_name)
         var ivCharacterThumbnail: ImageView = itemView.findViewById(R.id.iv_character_thumbnail)
 
         override fun onClick(view: View?) {
-            if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
+            mClickListener?.onItemClick(view, adapterPosition)
         }
 
         init {
