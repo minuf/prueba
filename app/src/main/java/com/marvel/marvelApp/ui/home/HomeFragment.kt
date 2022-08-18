@@ -1,5 +1,6 @@
 package com.marvel.marvelApp.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.marvelapp.databinding.FragmentCharactersBinding
+import com.google.android.material.snackbar.Snackbar
 import com.marvel.marvelApp.ui.BaseFragment
 import com.marvel.marvelApp.ui.home.charactersList.CharacterListAdapter
 import com.marvel.marvelApp.ui.home.charactersList.CharactersListScrollListener
@@ -72,14 +74,27 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.isNetworkReachable.collectLatest {
-                if (it) {
-                    println("INTERNET REACHABLE")
-                } else {
-                    println("INTERNET REACHABLE NOT")
+            viewModel.isNetworkReachable.collectLatest { internetReachable ->
+                if (!internetReachable) {
+                    showErrorMessageAndRetry(adapter.currentList.size)
                 }
             }
         }
+    }
+
+    private fun showErrorMessageAndRetry(skip: Int) {
+        Snackbar.make(
+            binding.root,
+            "Error",
+            Snackbar.LENGTH_INDEFINITE
+        )
+            .setAction("RETRY") {
+                viewModel.fetchCharacters(PAGE_SIZE, skip)
+            }
+            .setBackgroundTint(
+                Color.RED
+            )
+            .show()
     }
 }
 

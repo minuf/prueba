@@ -8,7 +8,10 @@ import com.marvel.domain.model.errors.ErrorEntity
 import com.marvel.domain.usecases.GetCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,10 +27,10 @@ class CharactersViewModel @Inject constructor(
     private var isLoading = false
 
     private val _characters = MutableStateFlow<List<Character>>(emptyList())
-    private val _isNetworkReachable = MutableStateFlow(true)
+    private val _isNetworkReachable = MutableSharedFlow<Boolean>()
 
     val characters: StateFlow<List<Character>> = _characters
-    val isNetworkReachable: StateFlow<Boolean> = _isNetworkReachable
+    val isNetworkReachable: SharedFlow<Boolean> = _isNetworkReachable
 
     init {
         fetchCharacters(PAGE_SIZE)
@@ -37,21 +40,21 @@ class CharactersViewModel @Inject constructor(
         if (!isLoading) {
             isLoading = true
             viewModelScope.launch(Dispatchers.IO) {
-                getCharactersUseCase(total, skip).let { result ->
-                    if (result is Result.Success) {
-                        _characters.value += result.data
-                    } else if (result is Result.Error) {
-                        handleError(result.error)
-                    }
-                    isLoading = false
+                val result = getCharactersUseCase(total, skip)
+                if (result is Result.Success) {
+                    _isNetworkReachable.emit(true)
+                    _characters.value += result.data
+                } else if (result is Result.Error) {
+                    handleError(result.error)
                 }
+                isLoading = false
             }
         }
     }
 
-    private fun handleError(error: ErrorEntity) {
+    private suspend fun handleError(error: ErrorEntity) {
         if (error is ErrorEntity.Network) {
-            _isNetworkReachable.value = false
+            _isNetworkReachable.emit(false)
             //TODO: registerBroadcast for internet changes
         } else {
             println("VIEWMODEL: UNEXPECTED ERROR")

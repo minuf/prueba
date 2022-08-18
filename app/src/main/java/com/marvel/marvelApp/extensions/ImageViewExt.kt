@@ -6,10 +6,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.marvelapp.R
 
-fun ImageView.loadUrl(url: String) {
+fun ImageView.loadUrl(url: String, width: Int = 600, height: Int = 400) {
     Glide.with(this.context)
         .load(url)
-        .apply(RequestOptions().override(600, 400))
+        .apply(RequestOptions().override(width, height))
         .placeholder(R.drawable.ic_launcher_background)
         .centerCrop()
         .diskCacheStrategy(DiskCacheStrategy.ALL)
