@@ -23,8 +23,6 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
 
     private val viewModel: CharactersViewModel by viewModels()
 
-    private lateinit var mLayoutManager: LinearLayoutManager
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,12 +53,12 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
             }
         })
 
-        mLayoutManager = LinearLayoutManager(requireContext())
-        binding.rvHome.layoutManager = mLayoutManager
-        binding.rvHome.adapter = adapter
-        binding.rvHome.addOnScrollListener(
+        val man = LinearLayoutManager(requireContext())
+        binding.rvCharacters.layoutManager = man
+        binding.rvCharacters.adapter = adapter
+        binding.rvCharacters.addOnScrollListener(
             CharactersListScrollListener(
-                mLayoutManager,
+                man,
                 viewModel
             )
         )
