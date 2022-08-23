@@ -35,7 +35,6 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvCharacterDetailName.text = args.character.name
-        binding.ivCharacterDetailThumbnail.loadUrl(args.character.thumbNail)
+        binding.character = args.character
     }
 }
